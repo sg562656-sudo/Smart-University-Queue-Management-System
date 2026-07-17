@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart University Queue Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <h2>🎓 Smart University</h2>
+
+        <ul>
+
+            <li class="active"><i class="fa-solid fa-house"></i> Dashboard</li>
+
+            <li onclick="goTransport()"><i class="fa-solid fa-bus"></i> Transport Office</li>
+
+            <li onclick="goRegistrar()"><i class="fa-solid fa-file-lines"></i> Registrar Office</li>
+
+            <li><i class="fa-solid fa-user-tie"></i> Dean Office <span class="soon">Soon</span></li>
+
+            <li><i class="fa-solid fa-user-shield"></i> Admin Office <span class="soon">Soon</span></li>
+
+            <li><i class="fa-solid fa-money-bill-wave"></i> Fee Counter <span class="soon">Soon</span></li>
+
+            <li><i class="fa-solid fa-utensils"></i> Canteen <span class="soon">Soon</span></li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main">
+
+        <!-- Top Navbar -->
+
+        <nav class="topbar">
+
+            <div>
+
+                <h2>Dashboard</h2>
+
+                <p id="welcome">Welcome Student</p>
+
+            </div>
+
+            <div class="right">
+
+                <span id="clock"></span>
+
+                <button class="notify">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                </button>
+
+            </div>
+
+        </nav>
+
+        <!-- Student Profile -->
+
+        <section class="profile">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+            <div>
+
+                <h2 id="studentName">Student Name</h2>
+
+                <p id="studentRoll">Roll Number</p>
+
+                <p id="studentDepartment">Department</p>
+
+                <p id="studentEmail">Email</p>
+
+            </div>
+
+        </section>
+
+        <!-- Statistics -->
+
+        <section class="stats">
+
+            <div class="card">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h2>128</h2>
+
+                <p>Today's Visitors</p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-ticket"></i>
+
+                <h2>24</h2>
+
+                <p>Current Queue</p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-check-circle"></i>
+
+                <h2>95</h2>
+
+                <p>Completed Today</p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <h2>12 min</h2>
+
+                <p>Average Wait</p>
+
+            </div>
+
+        </section>
+
+        <!-- ===========================
+        QUICK ACTIONS
+=========================== -->
+
+<h2 class="heading">⚡ Quick Actions</h2>
+
+<section class="actions">
+
+    <button onclick="generateToken()">
+
+        🎟 Generate Queue Token
+
+    </button>
+
+    <button onclick="busPass()">
+
+        🚌 Bus Pass Services
+
+    </button>
+
+    <button onclick="certificateRequest()">
+
+        📄 Request Certificate
+
+    </button>
+
+    <button onclick="trackRequest()">
+
+        📋 Track My Requests
+
+    </button>
+
+</section>
+        <!-- Quick Access -->
+
+        <h2 class="heading">Quick Access</h2>
+
+        <section class="modules">
+
+            <div class="module transport" onclick="goTransport()">
+
+                <i class="fa-solid fa-bus"></i>
+
+                <h3>Transport Office</h3>
+
+                <p>Bus Pass, Renewal & Queue</p>
+
+            </div>
+
+            <div class="module registrar" onclick="goRegistrar()">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <h3>Registrar Office</h3>
+
+                <p>Certificates & Requests</p>
+
+            </div>
+
+            <div class="module">
+
+                <i class="fa-solid fa-user-tie"></i>
+
+                <h3>Dean Office</h3>
+
+                <p>Coming Soon</p>
+
+            </div>
+
+            <div class="module">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                <h3>Admin Office</h3>
+
+                <p>Coming Soon</p>
+
+            </div>
+
+            <div class="module">
+
+                <i class="fa-solid fa-money-bill-wave"></i>
+
+                <h3>Fee Counter</h3>
+
+                <p>Coming Soon</p>
+
+            </div>
+
+            <div class="module">
+
+                <i class="fa-solid fa-utensils"></i>
+
+                <h3>Canteen</h3>
+
+                <p>Coming Soon</p>
+
+            </div>
+
+        </section>
+
+        <!-- Notices -->
+
+        <section class="notice">
+
+            <h2>📢 Latest Notices</h2>
+
+            <ul>
+
+                <li>Bus Route No. 5 timings updated.</li>
+
+                <li>Transcript collection starts from Monday.</li>
+
+                <li>Degree Verification every Friday.</li>
+
+                <li>University closed on National Holiday.</li>
+
+            </ul>
+
+        </section>
+
+        <!-- Footer -->
+
+        <footer>
+
+            © 2026 Smart University Queue Management System
+
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
