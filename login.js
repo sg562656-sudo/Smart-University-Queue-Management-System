@@ -1,145 +1,51 @@
-// ======================================
-// SMART UNIVERSITY QUEUE MANAGEMENT SYSTEM
-// LOGIN PAGE
-// ======================================
+// login.js - Fixed Role Redirection
+let currentRole = 'student';
 
-// ------------------------------
-// Demo Student Database
-// ------------------------------
-
-const students = [
-
-{
-    roll:"2025CSE001",
-    password:"student123",
-    name:"Shreya Aggarwal",
-    department:"Computer Science & Engineering (Data Science)",
-    year:"Second Year",
-    email:"shreya@gmail.com",
-    phone:"9876543210",
-    route:"Route 5"
-},
-
-{
-    roll:"2025CSE002",
-    password:"student123",
-    name:"Rahul Sharma",
-    department:"Computer Science & Engineering (AI & ML)",
-    year:"Second Year",
-    email:"rahul@gmail.com",
-    phone:"9876543201",
-    route:"Route 2"
-},
-
-{
-    roll:"2025ECE001",
-    password:"student123",
-    name:"Priya Singh",
-    department:"Electronics & Communication",
-    year:"Third Year",
-    email:"priya@gmail.com",
-    phone:"9876543202",
-    route:"Route 1"
+function selectRole(role) {
+  currentRole = role;
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.id === `${role}-btn`) btn.classList.add('active');
+  });
 }
 
-];
+function togglePassword() {
+  const pass = document.getElementById('password');
+  pass.type = pass.type === "password" ? "text" : "password";
+}
 
-// ------------------------------
-// Password Show / Hide
-// ------------------------------
+// Users Database
+const users = {
+  student: {
+    "2025CSE001": { password: "student123", name: "Shreya Aggarwal", redirect: "index.html" },
+    "2025ECE001": { password: "student123", name: "Priya Singh", redirect: "index.html" }
+  },
+  staff: {
+    "DEAN001": { password: "dean123", name: "Dr. Priya Sharma", redirect: "dean.html" },
+    "REG001": { password: "reg123", name: "Mr. Amit Verma", redirect: "registrar.html" },
+    "ADMIN001": { password: "admin123", name: "Ms. Neha Gupta", redirect: "index.html" }
+  }
+};
 
-const password=document.getElementById("password");
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
 
-const toggle=document.getElementById("togglePassword");
+  const user = users[currentRole]?.[username];
 
-toggle.addEventListener("click",()=>{
+  if (user && user.password === password) {
+    // Save user data
+    localStorage.setItem('userName', user.name);
+    localStorage.setItem('userRole', currentRole);
+    localStorage.setItem('userId', username);
 
-    if(password.type==="password"){
+    alert(`✅ Login Successful!\nWelcome, ${user.name}`);
 
-        password.type="text";
-
-        toggle.innerHTML='<i class="fa-solid fa-eye-slash"></i>';
-
-    }
-
-    else{
-
-        password.type="password";
-
-        toggle.innerHTML='<i class="fa-solid fa-eye"></i>';
-
-    }
-
+    // Redirect to correct page
+    window.location.href = user.redirect;
+  } else {
+    alert("❌ Invalid credentials.\n\nTry demo login:\nStudent: 2025CSE001 / student123\nStaff: DEAN001 / dean123");
+  }
 });
-
-// ------------------------------
-// Login Validation
-// ------------------------------
-
-document.getElementById("loginForm").addEventListener("submit",function(e){
-
-    e.preventDefault();
-
-    let roll=document.getElementById("roll").value.trim();
-
-    let pass=document.getElementById("password").value.trim();
-
-    const student=students.find(s=>s.roll===roll && s.password===pass);
-
-    if(student){
-
-        // Save student details
-
-        localStorage.setItem("studentName",student.name);
-        localStorage.setItem("studentRoll",student.roll);
-        localStorage.setItem("studentDepartment",student.department);
-        localStorage.setItem("studentYear",student.year);
-        localStorage.setItem("studentEmail",student.email);
-        localStorage.setItem("studentPhone",student.phone);
-        localStorage.setItem("studentRoute",student.route);
-
-        // Loading effect
-
-        const btn=document.querySelector("button");
-
-        btn.innerHTML="Logging In...";
-
-        btn.disabled=true;
-
-        setTimeout(()=>{
-
-            alert("Welcome " + student.name + " 🎉");
-
-            window.location.href="index.html";
-
-        },1500);
-
-    }
-
-    else{
-
-        alert("❌ Invalid Roll Number or Password");
-
-    }
-
-});
-
-// ------------------------------
-// Enter Key Support
-// ------------------------------
-
-document.addEventListener("keypress",function(e){
-
-    if(e.key==="Enter"){
-
-        document.getElementById("loginForm").requestSubmit();
-
-    }
-
-});
-
-// ------------------------------
-// Console
-// ------------------------------
-
-console.log("Login Page Loaded Successfully");

@@ -1,705 +1,190 @@
-/* ==========================================
-   SMART UNIVERSITY QUEUE MANAGEMENT SYSTEM
-   LOGIN PAGE - PART 1
-========================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#0d47a1,#1565c0,#42a5f5);
-    overflow:hidden;
-}
-
-/* ===========================
-   Animated Background
-=========================== */
-
-.background{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:
-    radial-gradient(circle at top left,
-    rgba(255,255,255,.15),
-    transparent 40%),
-    radial-gradient(circle at bottom right,
-    rgba(255,255,255,.15),
-    transparent 35%);
-    z-index:-1;
-}
-
-/* ===========================
-      Main Container
-=========================== */
-
-.container{
-    width:1100px;
-    max-width:95%;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    background:rgba(255,255,255,.12);
-    backdrop-filter:blur(18px);
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 20px 40px rgba(0,0,0,.25);
-}
-
-/* ===========================
-      Left Panel
-=========================== */
-
-.left-panel{
-    color:white;
-    padding:60px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.logo{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:white;
-    color:#1565c0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:45px;
-    margin-bottom:30px;
-}
-
-.left-panel h1{
-    font-size:38px;
-    margin-bottom:10px;
-}
-
-.left-panel h2{
-    font-weight:400;
-    margin-bottom:25px;
-}
-
-.left-panel p{
-    line-height:30px;
-    opacity:.95;
-}
-
-/* ===========================
-      Feature List
-=========================== */
-
-.features{
-    margin-top:35px;
-}
-
-.features div{
-    margin:18px 0;
-    font-size:18px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.features i{
-    color:#ffe082;
-}
-
-/* ===========================
-      Right Panel
-=========================== */
-
-.right-panel{
-    background:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:50px;
-}
-
-/* ===========================
-      Login Card
-=========================== */
-
-.login-card{
-    width:100%;
-    max-width:420px;
-}
-
-.login-card h2{
-    color:#1565c0;
-    font-size:34px;
-    margin-bottom:8px;
-}
-
-.login-card p{
-    color:#666;
-    margin-bottom:25px;
-}
-/* ==========================================
-      INPUT FIELDS
-========================================== */
-
-.input-box{
-
-    position:relative;
-
-    margin-bottom:22px;
-
-}
-
-.input-box input{
-
-    width:100%;
-
-    padding:15px 50px 15px 50px;
-
-    border:2px solid #d9e4f5;
-
-    border-radius:12px;
-
-    outline:none;
-
-    font-size:16px;
-
-    transition:.3s;
-
-    background:#f8fbff;
-
-}
-
-.input-box input:focus{
-
-    border-color:#1565c0;
-
-    box-shadow:0 0 10px rgba(21,101,192,.2);
-
-}
-
-.input-box i{
-
-    position:absolute;
-
-    left:18px;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    color:#1565c0;
-
-    font-size:18px;
-
-}
-
-/* Password Eye */
-
-#togglePassword{
-
-    position:absolute;
-
-    right:18px;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    cursor:pointer;
-
-    color:#666;
-
-    transition:.3s;
-
-}
-
-#togglePassword:hover{
-
-    color:#1565c0;
-
-}
-
-/* ==========================================
-      OPTIONS
-========================================== */
-
-.options{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:25px;
-
-    font-size:14px;
-
-}
-
-.options label{
-
-    color:#555;
-
-    cursor:pointer;
-
-}
-
-.options input{
-
-    margin-right:5px;
-
-}
-
-.options a{
-
-    color:#1565c0;
-
-    text-decoration:none;
-
-    font-weight:500;
-
-}
-
-.options a:hover{
-
-    text-decoration:underline;
-
-}
-
-/* ==========================================
-      LOGIN BUTTON
-========================================== */
-
-button{
-
-    width:100%;
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:linear-gradient(135deg,#1565c0,#42a5f5);
-
-    color:white;
-
-    font-size:18px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.35s;
-
-    box-shadow:0 10px 20px rgba(21,101,192,.25);
-
-}
-
-button:hover{
-
-    transform:translateY(-4px);
-
-    box-shadow:0 18px 30px rgba(21,101,192,.35);
-
-}
-
-/* ==========================================
-      DEMO LOGIN BOX
-========================================== */
-
-.demo{
-
-    margin-top:30px;
-
-    background:#eef6ff;
-
-    border-left:5px solid #1565c0;
-
-    padding:18px;
-
-    border-radius:10px;
-
-}
-
-.demo h3{
-
-    color:#1565c0;
-
-    margin-bottom:10px;
-
-}
-
-.demo p{
-
-    margin:6px 0;
-
-    color:#444;
-
-}
-
-/* ==========================================
-      HOVER EFFECTS
-========================================== */
-
-.login-card{
-
-    animation:fadeUp .8s ease;
-
-}
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(30px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-button:active{
-
-    transform:scale(.98);
-
-}
-
-.input-box input::placeholder{
-
-    color:#999;
-
-}
-/* ==========================================
-      FLOATING BACKGROUND EFFECT
-========================================== */
-
-.background::before,
-.background::after{
-
-    content:"";
-
-    position:absolute;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,0.12);
-
-    animation:float 10s infinite ease-in-out;
-
-}
-
-.background::before{
-
-    width:250px;
-
-    height:250px;
-
-    top:-60px;
-
-    left:-60px;
-
-}
-
-.background::after{
-
-    width:180px;
-
-    height:180px;
-
-    bottom:-50px;
-
-    right:-50px;
-
-    animation-delay:2s;
-
-}
-
-@keyframes float{
-
-    0%{
-
-        transform:translateY(0px);
-
-    }
-
-    50%{
-
-        transform:translateY(25px);
-
-    }
-
-    100%{
-
-        transform:translateY(0px);
-
-    }
-
-}
-
-/* ==========================================
-      LOGO ANIMATION
-========================================== */
-
-.logo{
-
-    transition:.4s;
-
-    cursor:pointer;
-
-}
-
-.logo:hover{
-
-    transform:rotate(12deg) scale(1.08);
-
-    box-shadow:0 15px 30px rgba(255,255,255,.25);
-
-}
-
-/* ==========================================
-      PANEL ANIMATION
-========================================== */
-
-.left-panel{
-
-    animation:slideLeft .8s ease;
-
-}
-
-.right-panel{
-
-    animation:slideRight .8s ease;
-
-}
-
-@keyframes slideLeft{
-
-    from{
-
-        opacity:0;
-
-        transform:translateX(-50px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateX(0);
-
-    }
-
-}
-
-@keyframes slideRight{
-
-    from{
-
-        opacity:0;
-
-        transform:translateX(50px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateX(0);
-
-    }
-
-}
-
-/* ==========================================
-      SCROLLBAR
-========================================== */
-
-::-webkit-scrollbar{
-
-    width:10px;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:#1565c0;
-
-    border-radius:20px;
-
-}
-
-::-webkit-scrollbar-track{
-
-    background:#edf3fb;
-
-}
-
-/* ==========================================
-      RESPONSIVE DESIGN
-========================================== */
-
-@media(max-width:992px){
-
-.container{
-
-    grid-template-columns:1fr;
-
-}
-
-.left-panel{
-
-    text-align:center;
-
-    align-items:center;
-
-    padding:40px;
-
-}
-
-.right-panel{
-
-    padding:35px;
-
-}
-
-.features{
-
-    width:100%;
-
-}
-
-.features div{
-
-    justify-content:center;
-
-}
-
-}
-
-@media(max-width:600px){
-
-body{
-
-    padding:20px;
-
-}
-
-.container{
-
-    border-radius:18px;
-
-}
-
-.left-panel{
-
-    padding:30px 20px;
-
-}
-
-.left-panel h1{
-
-    font-size:30px;
-
-}
-
-.left-panel h2{
-
-    font-size:20px;
-
-}
-
-.left-panel p{
-
-    font-size:15px;
-
-    line-height:26px;
-
-}
-
-.logo{
-
-    width:70px;
-
-    height:70px;
-
-    font-size:35px;
-
-}
-
-.login-card h2{
-
-    font-size:28px;
-
-}
-
-.options{
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
-    gap:12px;
-
-}
-
-button{
-
-    font-size:16px;
-
-}
-
-.demo{
-
-    font-size:14px;
-
+/* login.css - Campus Queues Front Login */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0d47a1, #1565c0, #42a5f5);
+    overflow: hidden;
+    position: relative;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(255,255,255,.15), transparent 40%),
+                radial-gradient(circle at bottom right, rgba(255,255,255,.15), transparent 35%);
+    z-index: -1;
 }
 
+/* Container */
+.container {
+    width: 1100px;
+    max-width: 95%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(18px);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
 }
-
-/* ==========================================
-      UTILITY CLASSES
-========================================== */
-
-.hidden{
-
-    display:none;
 
+/* Left Panel - Branding */
+.left-panel {
+    color: white;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.text-center{
-
-    text-align:center;
-
+.logo-main h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
 }
-
-.mt-20{
-
-    margin-top:20px;
-
+
+.left-panel h2 {
+    font-size: 32px;
+    margin: 25px 0 30px;
+    line-height: 1.3;
 }
-
-.mb-20{
 
-    margin-bottom:20px;
+.features div {
+    margin: 16px 0;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Right Panel - Login */
+.right-panel {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
 
+.login-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.login-card h2 {
+    color: #1565c0;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.login-card p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Role Selection */
+.role-selection {
+    display: flex;
+    gap: 12px;
+    margin: 25px 0 30px;
+}
+
+.role-btn {
+    flex: 1;
+    padding: 14px;
+    background: rgba(21,101,192,0.1);
+    border: 2px solid rgba(21,101,192,0.3);
+    color: #1565c0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.role-btn.active {
+    background: #1565c0;
+    color: white;
+    border-color: #1565c0;
+}
+
+/* Input Fields */
+.input-box {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 15px 50px 15px 50px;
+    border: 2px solid #d9e4f5;
+    border-radius: 12px;
+    outline: none;
+    font-size: 16px;
+    background: #f8fbff;
+}
+
+.input-box input:focus {
+    border-color: #1565c0;
+    box-shadow: 0 0 10px rgba(21,101,192,.2);
+}
+
+.input-box i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1565c0;
+    font-size: 18px;
+}
+
+#togglePassword {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 18px;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1565c0, #42a5f5);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+.login-btn:hover {
+    transform: translateY(-4px);
+}
+
+/* Demo Box */
+.demo {
+    margin-top: 30px;
+    background: #eef6ff;
+    border-left: 5px solid #1565c0;
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media(max-width: 992px) {
+    .container { grid-template-columns: 1fr; }
 }

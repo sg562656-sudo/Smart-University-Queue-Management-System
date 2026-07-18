@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dean Office | Smart University</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="dean.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <h2>👔 Dean Office</h2>
+      <p>Smart University</p>
+    </div>
+    <ul>
+      <li class="active" onclick="switchTab(0)"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+      <li onclick="switchTab(1)"><i class="fas fa-users"></i> Live Queue</li>
+      <li onclick="switchTab(2)"><i class="fas fa-calendar-check"></i> Appointments</li>
+      <li onclick="switchTab(3)"><i class="fas fa-chart-bar"></i> Analytics</li>
+    </ul>
+  </div>
+
+  <main class="main">
+    <div class="topbar">
+      <h2>Dean Office Portal</h2>
+      <div class="profile-info">
+        <span>Dr. Priya Sharma</span>
+        <button class="notify" onclick="showNotifications()"><i class="fas fa-bell"></i></button>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="tab-0" class="tab-content active">
+      <div class="stats">
+        <div class="card">
+          <i class="fas fa-users"></i>
+          <h2>42</h2>
+          <p>Today's Appointments</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-check-circle"></i>
+          <h2>28</h2>
+          <p>Resolved</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-clock"></i>
+          <h2>14 min</h2>
+          <p>Avg. Wait Time</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h2>14</h2>
+          <p>Pending Requests</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Queue -->
+    <div id="tab-1" class="tab-content">
+      <h2>Live Queue Management</h2>
+      <div class="now-serving">
+        <h3>Currently Serving</h3>
+        <div class="token-big" id="current-token">D-037</div>
+        <button class="btn next-btn" onclick="callNext()">Call Next Student</button>
+      </div>
+    </div>
+
+    <!-- Appointments -->
+    <div id="tab-2" class="tab-content">
+      <h2>New Appointment Request</h2>
+      <form onsubmit="handleAppointment(event)">
+        <input type="text" placeholder="Student Roll Number" required><br><br>
+        <textarea placeholder="Purpose / Issue" rows="5" required></textarea><br><br>
+        <button type="submit" class="btn">Submit to Dean</button>
+      </form>
+    </div>
+
+    <footer>© 2026 Smart University | Dean Office</footer>
+  </main>
+
+  <script src="dean.js"></script>
+</body>
+</html>

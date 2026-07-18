@@ -1,391 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Registrar Office</title>
-
+    <title>Registrar Office | Smart University</title>
     <link rel="stylesheet" href="registrar.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 </head>
-
 <body>
 
-<!-- ===========================
-        SIDEBAR
-=========================== -->
-
+<!-- Sidebar -->
 <div class="sidebar">
-
     <h2>🎓 Smart University</h2>
-
     <ul>
-
-        <li onclick="goDashboard()">
-            <i class="fa-solid fa-house"></i>
-            Dashboard
-        </li>
-
-        <li onclick="goTransport()">
-            <i class="fa-solid fa-bus"></i>
-            Transport
-        </li>
-
-        <li class="active">
-            <i class="fa-solid fa-file-lines"></i>
-            Registrar
-        </li>
-
-        <li>
-            <i class="fa-solid fa-user-tie"></i>
-            Dean
-        </li>
-
-        <li>
-            <i class="fa-solid fa-user-shield"></i>
-            Admin
-        </li>
-
-        <li>
-            <i class="fa-solid fa-indian-rupee-sign"></i>
-            Fee Counter
-        </li>
-
-        <li>
-            <i class="fa-solid fa-utensils"></i>
-            Canteen
-        </li>
-
-        <li onclick="logout()">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-        </li>
-
+        <li onclick="goDashboard()"><i class="fa-solid fa-house"></i> Dashboard</li>
+        <li onclick="goTransport()"><i class="fa-solid fa-bus"></i> Transport</li>
+        <li class="active"><i class="fa-solid fa-file-lines"></i> Registrar</li>
+        <li onclick="goDean()"><i class="fa-solid fa-user-tie"></i> Dean</li>
+        <li><i class="fa-solid fa-user-shield"></i> Admin <span class="soon">Soon</span></li>
+        <li><i class="fa-solid fa-indian-rupee-sign"></i> Fee Counter <span class="soon">Soon</span></li>
+        <li onclick="goCanteen()"><i class="fa-solid fa-utensils"></i> Canteen</li>
+        <li onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
     </ul>
-
 </div>
 
-<!-- ===========================
-        MAIN CONTENT
-=========================== -->
-
+<!-- Main Content -->
 <div class="main">
 
-<!-- TOPBAR -->
+    <!-- Topbar -->
+    <div class="topbar">
+        <h2 id="welcome">Registrar Office</h2>
+        <div id="clock"></div>
+    </div>
 
-<div class="topbar">
-
-    <h2 id="welcome"></h2>
-
-    <div id="clock"></div>
-
-</div>
-
-<!-- STUDENT CARD -->
-
-<h2 class="heading">👤 Student Information</h2>
-
-<section class="student-card">
-
-    <div class="profile">
-
-        <div class="avatar">
-            🎓
+    <!-- Student Info -->
+    <h2 class="heading">👤 Student Information</h2>
+    <section class="student-card">
+        <div class="profile">
+            <div class="avatar">🎓</div>
+            <div>
+                <h2 id="studentName"></h2>
+                <p id="studentRoll"></p>
+                <p id="studentDepartment"></p>
+            </div>
         </div>
+    </section>
 
-        <div>
-
-            <h2 id="studentName"></h2>
-
-            <p id="studentRoll"></p>
-
-            <p id="studentDepartment"></p>
-
-            <p id="studentYear"></p>
-
+    <!-- Services -->
+    <h2 class="heading">📄 Registrar Services</h2>
+    <section class="services">
+        <div class="service-card">
+            <i class="fa-solid fa-file"></i>
+            <h3>Transcript</h3>
+            <button onclick="requestService('Transcript')">Apply</button>
         </div>
-
-    </div>
-
-</section>
-
-<!-- REGISTRAR SERVICES -->
-
-<h2 class="heading">📄 Registrar Services</h2>
-
-<section class="services">
-
-    <div class="service-card">
-
-        <i class="fa-solid fa-file"></i>
-
-        <h3>Transcript</h3>
-
-        <button onclick="requestService('Transcript')">
-
-            Apply
-
-        </button>
-
-    </div>
-
-    <div class="service-card">
-
-        <i class="fa-solid fa-certificate"></i>
-
-        <h3>Bonafide Certificate</h3>
-
-        <button onclick="requestService('Bonafide Certificate')">
-
-            Apply
-
-        </button>
-
-    </div>
-
-    <div class="service-card">
-
-        <i class="fa-solid fa-graduation-cap"></i>
-
-        <h3>Degree Certificate</h3>
-
-        <button onclick="requestService('Degree Certificate')">
-
-            Apply
-
-        </button>
-
-    </div>
-
-    <div class="service-card">
-
-        <i class="fa-solid fa-passport"></i>
-
-        <h3>Migration Certificate</h3>
-
-        <button onclick="requestService('Migration Certificate')">
-
-            Apply
-
-        </button>
-
-    </div>
-
-    <div class="service-card">
-
-        <i class="fa-solid fa-user-check"></i>
-
-        <h3>Character Certificate</h3>
-
-        <button onclick="requestService('Character Certificate')">
-
-            Apply
-
-        </button>
-
-    </div>
-
-    <div class="service-card">
-
-        <i class="fa-solid fa-id-card"></i>
-
-        <h3>ID Verification</h3>
-
-        <button onclick="requestService('ID Verification')">
-
-            Apply
-
-        </button>
-
-    </div>
-
-</section>
-
-<!-- QUEUE -->
-
-<h2 class="heading">🎟 Queue Status</h2>
-
-<section class="queue-section">
-
-    <div class="queue-card">
-
-        <h3>Your Token</h3>
-
-        <h1 id="tokenNumber">R-201</h1>
-
-        <button onclick="generateToken()">
-
-            Generate Token
-
-        </button>
-
-    </div>
-
-    <div class="queue-card">
-
-        <h3>Current Token</h3>
-
-        <h1 id="currentToken">R-192</h1>
-
-        <p>Students Ahead :
-            <span id="studentsAhead">9</span>
-        </p>
-
-        <p>Estimated Wait :
-            <span id="waitingTime">27 Minutes</span>
-        </p>
-
-    </div>
-
-</section>
-
-<!-- REQUEST STATUS -->
-
-<h2 class="heading">📊 Request Status</h2>
-
-<div class="status-box">
-
-    <p>Transcript :
-        <span class="pending">Pending</span>
-    </p>
-
-    <p>Bonafide Certificate :
-        <span class="approved">Approved</span>
-    </p>
-
-    <p>Migration Certificate :
-        <span class="approved">Approved</span>
-    </p>
-
-</div>
-
-<!-- OFFICE TIMINGS -->
-
-<h2 class="heading">🕒 Office Timings</h2>
-
-<div class="office-box">
-
-    <p><strong>Monday - Friday :</strong> 9:00 AM - 5:00 PM</p>
-
-    <p><strong>Saturday :</strong> 9:00 AM - 1:00 PM</p>
-
-    <p><strong>Sunday :</strong> Closed</p>
-
-</div>
-
-<!-- NOTICES -->
-
-<h2 class="heading">📢 Registrar Notices</h2>
-
-<div class="notice-box">
-
-    <ul>
-
-        <li>Transcript applications close on 30 June.</li>
-
-        <li>Degree certificates are available for collection.</li>
-
-        <li>Carry your University ID card during document collection.</li>
-
-        <li>Migration requests take 5–7 working days.</li>
-
-    </ul>
-
-</div>
-
-<!-- RULES -->
-
-<h2 class="heading">📚 Rules & Guidelines</h2>
-
-<div class="rules-box">
-
-    <ul>
-
-        <li>Submit valid documents while applying.</li>
-
-        <li>Processing time depends on document type.</li>
-
-        <li>Incomplete requests may be rejected.</li>
-
-        <li>Collect original certificates within office hours.</li>
-
-    </ul>
-
-</div>
-
-<!-- HISTORY -->
-
-<h2 class="heading">📋 Request History</h2>
-
-<table class="history-table">
-
-    <thead>
-
-        <tr>
-
-            <th>Date</th>
-
-            <th>Request</th>
-
-            <th>Status</th>
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        <tr>
-
-            <td>18 June 2026</td>
-
-            <td>Bonafide Certificate</td>
-
-            <td class="approved">Approved</td>
-
-        </tr>
-
-        <tr>
-
-            <td>12 May 2026</td>
-
-            <td>Migration Certificate</td>
-
-            <td class="approved">Approved</td>
-
-        </tr>
-
-    </tbody>
-
-</table>
-
-<footer>
-
-    <p>
-
-        © 2026 Smart University Queue Management System
-
-    </p>
-
-</footer>
-
+        <div class="service-card">
+            <i class="fa-solid fa-certificate"></i>
+            <h3>Bonafide Certificate</h3>
+            <button onclick="requestService('Bonafide Certificate')">Apply</button>
+        </div>
+        <div class="service-card">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <h3>Degree Certificate</h3>
+            <button onclick="requestService('Degree Certificate')">Apply</button>
+        </div>
+        <div class="service-card">
+            <i class="fa-solid fa-passport"></i>
+            <h3>Migration Certificate</h3>
+            <button onclick="requestService('Migration Certificate')">Apply</button>
+        </div>
+    </section>
+
+    <!-- Queue -->
+    <h2 class="heading">🎟 Queue Status</h2>
+    <section class="queue-section">
+        <div class="queue-card">
+            <h3>Your Token</h3>
+            <h1 id="tokenNumber">R-201</h1>
+            <button onclick="generateToken()">Generate Token</button>
+        </div>
+        <div class="queue-card">
+            <h3>Current Token</h3>
+            <h1 id="currentToken">R-192</h1>
+            <p>Students Ahead: <span id="studentsAhead">9</span></p>
+            <p>Estimated Wait: <span id="waitingTime">27 Minutes</span></p>
+        </div>
+    </section>
+
+    <footer>© 2026 Smart University Queue Management System</footer>
 </div>
 
 <script src="registrar.js"></script>
-
 </body>
-
 </html>
