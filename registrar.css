@@ -1,459 +1,135 @@
-/* ==========================================
-   SMART UNIVERSITY QUEUE MANAGEMENT SYSTEM
-   REGISTRAR OFFICE
-========================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+/* registrar.css - Professional Registrar Office */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
-    display:flex;
-    background:#f5f7fb;
+body {
+    background: #f5f7fb;
+    display: flex;
 }
 
-/* ==========================================
-        SIDEBAR
-========================================== */
-
-.sidebar{
-    width:250px;
-    height:100vh;
-    background:linear-gradient(180deg,#f57c00,#fb8c00);
-    color:white;
-    position:fixed;
-    left:0;
-    top:0;
-    padding:25px;
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #f57c00, #fb8c00);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    padding: 30px 20px;
 }
 
-.sidebar h2{
-    text-align:center;
-    margin-bottom:35px;
-    font-size:24px;
+.logo h2 {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-.sidebar ul{
-    list-style:none;
+.sidebar ul {
+    list-style: none;
 }
 
-.sidebar ul li{
-    padding:16px;
-    margin:10px 0;
-    border-radius:12px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    transition:.3s;
+.sidebar li {
+    padding: 15px 20px;
+    margin: 8px 0;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.3s;
 }
 
-.sidebar ul li:hover{
-    background:rgba(255,255,255,.18);
+.sidebar li:hover, .sidebar li.active {
+    background: rgba(255,255,255,0.25);
 }
 
-.sidebar .active{
-    background:white;
-    color:#f57c00;
-    font-weight:600;
+/* Main */
+.main {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 30px;
 }
 
-/* ==========================================
-        MAIN
-========================================== */
-
-.main{
-    margin-left:250px;
-    width:calc(100% - 250px);
-    padding:35px;
-    animation:fadeIn .7s ease;
+.topbar {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-/* ==========================================
-        TOPBAR
-========================================== */
-
-.topbar{
-    background:white;
-    padding:20px 30px;
-    border-radius:18px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    margin-bottom:35px;
+/* Student Card */
+.student-card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
 }
 
-#welcome{
-    color:#ef6c00;
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: #f57c00;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
 }
 
-#clock{
-    font-weight:600;
-    color:#555;
+/* Services */
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
 }
 
-/* ==========================================
-        HEADINGS
-========================================== */
-
-.heading{
-    color:#ef6c00;
-    margin:30px 0 18px;
-    font-size:26px;
+.service-card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* ==========================================
-        STUDENT CARD
-========================================== */
-
-.student-card{
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 10px 20px rgba(0,0,0,.08);
-    margin-bottom:30px;
+.service-card button {
+    background: #f57c00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.profile{
-    display:flex;
-    align-items:center;
-    gap:25px;
+/* Queue */
+.queue-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
 }
 
-.avatar{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:#f57c00;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    font-size:40px;
+.queue-card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-.profile h2{
-    color:#ef6c00;
-    margin-bottom:10px;
-}
-
-.profile p{
-    margin:6px 0;
-    color:#666;
-}
-
-/* ==========================================
-        SERVICE CARDS
-========================================== */
-
-.services{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:22px;
-}
-
-.service-card{
-    background:white;
-    border-radius:18px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    transition:.35s;
-}
-
-.service-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 18px 30px rgba(245,124,0,.20);
-}
-
-.service-card i{
-    font-size:52px;
-    color:#f57c00;
-    margin-bottom:18px;
-}
-
-.service-card h3{
-    margin-bottom:18px;
-    color:#ef6c00;
-}
-
-.service-card button{
-    padding:12px 26px;
-    border:none;
-    border-radius:10px;
-    background:#f57c00;
-    color:white;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.service-card button:hover{
-    background:#e65100;
-    transform:scale(1.05);
-}
-
-/* ==========================================
-        QUEUE
-========================================== */
-
-.queue-section{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:22px;
-}
-
-.queue-card{
-    background:white;
-    padding:30px;
-    text-align:center;
-    border-radius:18px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-.queue-card h3{
-    color:#ef6c00;
-}
-
-.queue-card h1{
-    margin:15px 0;
-    color:#f57c00;
-    font-size:45px;
-}
-
-.queue-card button{
-    margin-top:18px;
-    padding:12px 26px;
-    border:none;
-    border-radius:10px;
-    background:#f57c00;
-    color:white;
-    cursor:pointer;
-}
-
-.queue-card button:hover{
-    background:#e65100;
-}
-
-/* ==========================================
-        STATUS
-========================================== */
-
-.status-box,
-.office-box,
-.notice-box,
-.rules-box{
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    margin-bottom:30px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-.status-box p,
-.office-box p{
-    margin:12px 0;
-    color:#555;
-}
-
-.notice-box ul,
-.rules-box ul{
-    padding-left:20px;
-}
-
-.notice-box li,
-.rules-box li{
-    margin:12px 0;
-    color:#555;
-    line-height:26px;
-}
-
-/* ==========================================
-        HISTORY TABLE
-========================================== */
-
-.history-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-.history-table th{
-    background:#f57c00;
-    color:white;
-    padding:16px;
-    text-align:left;
-}
-
-.history-table td{
-    padding:16px;
-    border-bottom:1px solid #eeeeee;
-}
-
-.history-table tr:hover{
-    background:#fff7f0;
-}
-
-.approved{
-    color:green;
-    font-weight:600;
-}
-
-.pending{
-    color:#ef6c00;
-    font-weight:600;
-}
-
-.rejected{
-    color:red;
-    font-weight:600;
-}
-
-/* ==========================================
-        FOOTER
-========================================== */
-
-footer{
-    background:white;
-    text-align:center;
-    padding:20px;
-    margin-top:30px;
-    border-radius:15px;
-    color:#666;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-/* ==========================================
-        TOAST
-========================================== */
-
-.toast{
-    position:fixed;
-    top:25px;
-    right:25px;
-    background:#f57c00;
-    color:white;
-    padding:15px 22px;
-    border-radius:12px;
-    opacity:0;
-    transform:translateX(100px);
-    transition:.4s;
-    z-index:999;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateX(0);
-}
-
-/* ==========================================
-        SCROLLBAR
-========================================== */
-
-::-webkit-scrollbar{
-    width:10px;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#f57c00;
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-track{
-    background:#f2f2f2;
-}
-
-/* ==========================================
-        ANIMATION
-========================================== */
-
-@keyframes fadeIn{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
+/* Responsive */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
     }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
+    .main {
+        margin-left: 0;
     }
-
-}
-
-/* ==========================================
-        RESPONSIVE
-========================================== */
-
-@media(max-width:992px){
-
-    .sidebar{
-        width:220px;
-    }
-
-    .main{
-        margin-left:220px;
-        width:calc(100% - 220px);
-    }
-
-}
-
-@media(max-width:768px){
-
-    body{
-        display:block;
-    }
-
-    .sidebar{
-        position:relative;
-        width:100%;
-        height:auto;
-    }
-
-    .main{
-        margin-left:0;
-        width:100%;
-        padding:20px;
-    }
-
-    .services,
-    .queue-section{
-        grid-template-columns:1fr;
-    }
-
-    .profile{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .history-table{
-        display:block;
-        overflow-x:auto;
-        white-space:nowrap;
-    }
-
-}
-
-@media(max-width:480px){
-
-    .heading{
-        font-size:22px;
-    }
-
-    .avatar{
-        width:75px;
-        height:75px;
-        font-size:32px;
-    }
-
-    .queue-card h1{
-        font-size:35px;
-    }
-
 }

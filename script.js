@@ -1,224 +1,183 @@
-// ===============================
-// SMART UNIVERSITY DASHBOARD
-// script.js
-// ===============================
+// ===========================================
+// SMART UNIVERSITY QUEUE MANAGEMENT SYSTEM
+// Dashboard Script - FINAL VERSION
+// ===========================================
 
-// -------------------------------
-// Student Details
-// -------------------------------
+// ------------------------------
+// Student Details from LocalStorage
+// ------------------------------
 
-// Get data from localStorage
+const studentName = localStorage.getItem("studentName") || "Shreya Aggarwal";
+const studentRoll = localStorage.getItem("studentRoll") || "2025CSE001";
+const studentDepartment = localStorage.getItem("studentDepartment") || 
+                         "Computer Science & Engineering (Data Science)";
+const studentEmail = localStorage.getItem("studentEmail") || "shreya@gmail.com";
 
-let studentName = localStorage.getItem("studentName") || "Shreya Aggarwal";
-let studentRoll = localStorage.getItem("studentRoll") || "2025CSE001";
-let studentDepartment = localStorage.getItem("studentDepartment") || "Computer Science & Engineering (Data Science)";
-let studentEmail = localStorage.getItem("studentEmail") || "shreya@gmail.com";
+// ------------------------------
+// Display Student Information
+// ------------------------------
 
-// Display on Dashboard
+const nameElement = document.getElementById("studentName");
+const rollElement = document.getElementById("studentRoll");
+const deptElement = document.getElementById("studentDepartment");
+const emailElement = document.getElementById("studentEmail");
 
-document.getElementById("studentName").innerHTML = studentName;
+if (nameElement) nameElement.textContent = studentName;
+if (rollElement) rollElement.innerHTML = `🎓 Roll No : ${studentRoll}`;
+if (deptElement) deptElement.innerHTML = `🏫 Department : ${studentDepartment}`;
+if (emailElement) emailElement.innerHTML = `📧 Email : ${studentEmail}`;
 
-document.getElementById("studentRoll").innerHTML = "🎓 Roll No : " + studentRoll;
+// ------------------------------
+// Dynamic Greeting
+// ------------------------------
 
-document.getElementById("studentDepartment").innerHTML = "🏫 Department : " + studentDepartment;
+function updateGreeting() {
+  const hour = new Date().getHours();
+  let greeting = "";
 
-document.getElementById("studentEmail").innerHTML = "📧 Email : " + studentEmail;
+  if (hour < 12) greeting = "☀ Good Morning";
+  else if (hour < 17) greeting = "🌤 Good Afternoon";
+  else greeting = "🌙 Good Evening";
 
-
-// -------------------------------
-// Greeting
-// -------------------------------
-
-let hour = new Date().getHours();
-
-let greeting = "";
-
-if(hour < 12){
-
-    greeting = "☀ Good Morning";
-
+  const welcomeEl = document.getElementById("welcome");
+  if (welcomeEl) {
+    welcomeEl.innerHTML = `${greeting}, <b>${studentName}</b>`;
+  }
 }
 
-else if(hour < 17){
+updateGreeting();
 
-    greeting = "🌤 Good Afternoon";
-
-}
-
-else{
-
-    greeting = "🌙 Good Evening";
-
-}
-
-document.getElementById("welcome").innerHTML =
-greeting + ", <b>" + studentName + "</b>";
-
-
-// -------------------------------
+// ------------------------------
 // Live Clock
-// -------------------------------
+// ------------------------------
 
-function updateClock(){
+function updateClock() {
+  const now = new Date();
+  const dateOptions = { 
+    weekday: "long", 
+    year: "numeric", 
+    month: "long", 
+    day: "numeric" 
+  };
 
-    let now = new Date();
+  const date = now.toLocaleDateString("en-IN", dateOptions);
+  const time = now.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
 
-    let options = {
-
-        weekday:'long',
-        year:'numeric',
-        month:'long',
-        day:'numeric'
-
-    };
-
-    let date = now.toLocaleDateString("en-IN",options);
-
-    let time = now.toLocaleTimeString();
-
-    document.getElementById("clock").innerHTML =
-    "📅 " + date + " | ⏰ " + time;
-
+  const clockEl = document.getElementById("clock");
+  if (clockEl) {
+    clockEl.innerHTML = `📅 ${date} | ⏰ ${time}`;
+  }
 }
 
-setInterval(updateClock,1000);
-
+setInterval(updateClock, 1000);
 updateClock();
 
+// ------------------------------
+// Dashboard Statistics (Live Update)
+// ------------------------------
 
-// -------------------------------
-// Dashboard Statistics
-// -------------------------------
-
-function randomStats(){
-
-    let cards = document.querySelectorAll(".card h2");
-
-    cards[0].innerHTML = Math.floor(Math.random()*100)+100;
-
-    cards[1].innerHTML = Math.floor(Math.random()*30)+10;
-
-    cards[2].innerHTML = Math.floor(Math.random()*100)+50;
-
-    cards[3].innerHTML = Math.floor(Math.random()*15)+5 + " min";
-
+function updateStats() {
+  const cards = document.querySelectorAll(".card h2");
+  if (cards.length >= 4) {
+    cards[0].textContent = Math.floor(Math.random() * 80) + 100;   // Visitors
+    cards[1].textContent = Math.floor(Math.random() * 25) + 8;     // Current Queue
+    cards[2].textContent = Math.floor(Math.random() * 60) + 80;    // Completed
+    cards[3].textContent = Math.floor(Math.random() * 12) + 6 + " min"; // Avg Wait
+  }
 }
 
-randomStats();
+updateStats();
+setInterval(updateStats, 10000); // Refresh every 10 seconds
 
-
-// -------------------------------
+// ------------------------------
 // Notification Bell
-// -------------------------------
+// ------------------------------
 
-document.querySelector(".notify").addEventListener("click",function(){
-
-    alert(
-
-`📢 Latest Notifications
-
+const notifyBtn = document.querySelector(".notify");
+if (notifyBtn) {
+  notifyBtn.addEventListener("click", function () {
+    alert(`📢 SMART UNIVERSITY NOTIFICATIONS\n
 🚌 Bus Route No. 5 Updated
-
 📄 Transcript Collection Starts Monday
-
 🎓 Degree Verification Every Friday
+🍽️ Canteen Special Combo Offer Today!
+👔 Dean Office Appointments Open
+💰 Fee Counter Open Till 5 PM
 
-💰 Fee Counter Timings Updated
+Have a Great Day! 😊`);
+  });
+}
 
-Have a Great Day 😊`
+// ------------------------------
+// Navigation Functions
+// ------------------------------
 
-);
+function goTransport() {
+  window.location.href = "transport.html";
+}
 
+function goRegistrar() {
+  window.location.href = "registrar.html";
+}
+
+function goDean() {
+  window.location.href = "dean.html";
+}
+
+function goCanteen() {
+  window.location.href = "canteen.html";
+}
+
+// ------------------------------
+// Quick Actions
+// ------------------------------
+
+function generateToken() {
+  alert("🎟 Your Queue Token has been generated!\n\nToken ID: Q-" + Math.floor(1000 + Math.random() * 9000));
+}
+
+function busPass() {
+  goTransport();
+}
+
+function certificateRequest() {
+  goRegistrar();
+}
+
+function trackRequest() {
+  alert("📋 Request Tracking System\n\nThis feature is connected to backend.\nCheck Registrar or Dean Office.");
+}
+
+// ------------------------------
+// Module Hover Effects
+// ------------------------------
+
+document.querySelectorAll(".module").forEach(module => {
+  module.addEventListener("mouseenter", () => {
+    module.style.transform = "translateY(-8px)";
+    module.style.boxShadow = "0 15px 30px rgba(13, 110, 253, 0.2)";
+  });
+
+  module.addEventListener("mouseleave", () => {
+    module.style.transform = "translateY(0)";
+    module.style.boxShadow = "";
+  });
 });
 
+// ------------------------------
+// Logout Function
+// ------------------------------
 
-// -------------------------------
-// Module Navigation
-// -------------------------------
-
-function goTransport(){
-
-    window.location.href="transport.html";
-
+function logout() {
+  if (confirm("Are you sure you want to logout?")) {
+    localStorage.clear();
+    window.location.href = "login.html";
+  }
 }
 
-function goRegistrar(){
-
-    window.location.href="registrar.html";
-
-}
-
-
-// -------------------------------
-// Future Modules
-// -------------------------------
-
-let modules=document.querySelectorAll(".module");
-
-modules.forEach(function(card){
-
-    card.addEventListener("mouseenter",function(){
-
-        card.style.transform="translateY(-8px)";
-
-    });
-
-    card.addEventListener("mouseleave",function(){
-
-        card.style.transform="translateY(0px)";
-
-    });
-
-});
-
-
-// -------------------------------
-// Logout
-// -------------------------------
-
-function logout(){
-
-    let confirmLogout=confirm("Do you want to Logout?");
-
-    if(confirmLogout){
-
-        window.location.href="login.html";
-
-    }
-
-}
-
-
-// -------------------------------
+// ------------------------------
 // Console Message
-// -------------------------------
+// ------------------------------
 
-console.log("Smart University Queue Management System Loaded Successfully.");
-
-// ===============================
-// QUICK ACTIONS
-// ===============================
-
-function generateToken(){
-
-    alert("🎟 Queue Token feature will be connected with the database.");
-
-}
-
-function busPass(){
-
-    window.location.href="transport.html";
-
-}
-
-function certificateRequest(){
-
-    window.location.href="registrar.html";
-
-}
-
-function trackRequest(){
-
-    alert("📋 Track Request feature will be available after backend integration.");
-
-}
+console.log("✅ Smart University Queue Management System Dashboard Loaded Successfully!");
+console.log("Current User:", studentName);
