@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Queues - Smart University</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="container">
+    <!-- Left Side - Branding -->
+    <div class="left-panel">
+      <div class="logo-main">
+        <h1>🏛️ Campus Queues</h1>
+        <p>Smart University</p>
+      </div>
+      <h2>Skip the Lines.<br>Manage Smartly.</h2>
+      <div class="features">
+        <div><i class="fas fa-check-circle"></i> Real-time Queue Tracking</div>
+        <div><i class="fas fa-check-circle"></i> Digital Token System</div>
+        <div><i class="fas fa-check-circle"></i> Multi-Department Access</div>
+        <div><i class="fas fa-check-circle"></i> Instant Updates</div>
+      </div>
+    </div>
+
+    <!-- Right Side - Login -->
+    <div class="right-panel">
+      <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p>Login to access university services</p>
+
+        <!-- Role Selection -->
+        <div class="role-selection">
+          <button onclick="selectRole('student')" class="role-btn active" id="student-btn">
+            👨‍🎓 Student
+          </button>
+          <button onclick="selectRole('staff')" class="role-btn" id="staff-btn">
+            👔 Staff / Faculty
+          </button>
+        </div>
+
+        <form id="loginForm">
+          <div class="input-box">
+            <i class="fas fa-id-card"></i>
+            <input type="text" id="username" placeholder="Roll No / Employee ID" required>
+          </div>
+
+          <div class="input-box">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="Password" required>
+            <span id="togglePassword" onclick="togglePassword()">👁️</span>
+          </div>
+
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <div class="demo">
+          <strong>Demo Credentials</strong><br>
+          Student: <code>2025CSE001</code> / student123<br>
+          Staff: <code>DEAN001</code> / dean123
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
