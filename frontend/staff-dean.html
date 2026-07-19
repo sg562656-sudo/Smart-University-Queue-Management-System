@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dean Office (Staff) | Smart University</title>
+    <link rel="stylesheet" href="dean.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>🎓 Smart University</h2>
+    <ul>
+        <li><i class="fa-solid fa-bus"></i> <a href="staff-transport.html" style="color:white;text-decoration:none;">Transport</a></li>
+        <li><i class="fa-solid fa-file-lines"></i> <a href="staff-registrar.html" style="color:white;text-decoration:none;">Registrar</a></li>
+        <li class="active"><i class="fa-solid fa-user-tie"></i> Dean</li>
+        <li><i class="fa-solid fa-utensils"></i> <a href="staff-canteen.html" style="color:white;text-decoration:none;">Canteen</a></li>
+        <li onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <h2 id="welcome">Staff Dean Dashboard</h2>
+        <div id="clock"></div>
+    </div>
+
+    <h2 class="heading">🎟 Manage Queue</h2>
+    <section class="queue-section" style="display: flex; gap: 20px;">
+        <div class="queue-card" style="background: white; padding: 20px; border-radius: 8px;">
+            <h3>Currently Serving Token</h3>
+            <h1 id="currentToken">None</h1>
+            <p>Waiting in queue: <span id="waitingCount">0</span></p>
+        </div>
+        <div class="queue-card" style="background: white; padding: 20px; border-radius: 8px;">
+            <h3>Actions</h3>
+            <button onclick="callNextToken()" style="background: #28a745; color: white; padding: 15px 30px; font-size: 1.2rem; border-radius: 8px; border: none; cursor: pointer;">
+                Call Next Student
+            </button>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchQueueStatus();
+        setInterval(() => {
+            document.getElementById("clock").innerText = new Date().toLocaleTimeString();
+        }, 1000);
+    });
+
+    let currentTokenNum = 5;
+    let waitingCountNum = 3;
+
+    function fetchQueueStatus() {
+        // Dummy logic instead of backend fetch
+        document.getElementById("currentToken").innerText = "D-" + currentTokenNum;
+        document.getElementById("waitingCount").innerText = waitingCountNum;
+    }
+
+    function callNextToken() {
+        if (waitingCountNum > 0) {
+            currentTokenNum++;
+            waitingCountNum--;
+            alert("Next token called: D-" + currentTokenNum);
+            fetchQueueStatus();
+        } else {
+            alert("No more students in queue.");
+        }
+    }
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+</script>
+</body>
+</html>

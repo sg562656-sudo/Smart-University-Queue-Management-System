@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Office (Staff) | Smart University</title>
+    <link rel="stylesheet" href="registrar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>🎓 Smart University</h2>
+    <ul>
+        <li><i class="fa-solid fa-bus"></i> <a href="staff-transport.html" style="color:white;text-decoration:none;">Transport</a></li>
+        <li class="active"><i class="fa-solid fa-file-lines"></i> Registrar</li>
+        <li><i class="fa-solid fa-user-tie"></i> <a href="staff-dean.html" style="color:white;text-decoration:none;">Dean</a></li>
+        <li><i class="fa-solid fa-utensils"></i> <a href="staff-canteen.html" style="color:white;text-decoration:none;">Canteen</a></li>
+        <li onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <h2 id="welcome">Staff Registrar Dashboard</h2>
+        <div id="clock"></div>
+    </div>
+
+    <h2 class="heading">🎟 Manage Queue</h2>
+    <section class="queue-section">
+        <div class="queue-card">
+            <h3>Currently Serving Token</h3>
+            <h1 id="currentToken">None</h1>
+            <p>Waiting in queue: <span id="waitingCount">0</span></p>
+        </div>
+        <div class="queue-card">
+            <h3>Actions</h3>
+            <button onclick="callNextToken()" style="background: #28a745; color: white; padding: 15px 30px; font-size: 1.2rem; border-radius: 8px; border: none; cursor: pointer;">
+                Call Next Student
+            </button>
+        </div>
+    </section>
+
+</div>
+
+<script src="staff-registrar.js"></script>
+</body>
+</html>
