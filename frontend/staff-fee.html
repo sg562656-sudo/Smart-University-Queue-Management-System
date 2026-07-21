@@ -8,14 +8,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Canteen Dashboard</title>
+<title>Fee Counter Dashboard</title>
 
-<link rel="stylesheet" href="staff-canteen.css">
+<link rel="stylesheet" href="staff-fee.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -23,31 +22,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="sidebar">
 
-<h2>🍔 Smart University</h2>
+<h2>💳 Smart University</h2>
 
 <ul>
 
 <li class="active">
 
-<i class="fa-solid fa-utensils"></i>
+<i class="fa-solid fa-money-bill-wave"></i>
 
-Canteen Dashboard
-
-</li>
-
-<li>
-
-<i class="fa-solid fa-burger"></i>
-
-Orders
+Fee Dashboard
 
 </li>
 
 <li>
 
-<i class="fa-solid fa-clock"></i>
+<i class="fa-solid fa-wallet"></i>
 
-Queue
+Fee Collection
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-file-invoice-dollar"></i>
+
+Receipts
 
 </li>
 
@@ -55,7 +54,7 @@ Queue
 
 <i class="fa-solid fa-chart-line"></i>
 
-Sales
+Payment Reports
 
 </li>
 
@@ -75,7 +74,7 @@ Logout
 
 <div class="topbar">
 
-<h2>Canteen Management</h2>
+<h2>Fee Counter</h2>
 
 <div id="clock"></div>
 
@@ -85,13 +84,13 @@ Logout
 
 <h1 id="staffName">
 
-Welcome Canteen Staff
+Welcome Fee Officer
 
 </h1>
 
 <p>
 
-Manage food orders and token queue.
+Manage student fee payments and generate receipts.
 
 </p>
 
@@ -101,15 +100,11 @@ Manage food orders and token queue.
 
 <div class="card">
 
-<i class="fa-solid fa-hourglass-half"></i>
+<i class="fa-solid fa-clock"></i>
 
-<h2 id="pendingCount">
+<h2 id="pendingCount">3</h2>
 
-3
-
-</h2>
-
-<p>Preparing</p>
+<p>Pending Payments</p>
 
 </div>
 
@@ -117,27 +112,19 @@ Manage food orders and token queue.
 
 <i class="fa-solid fa-circle-check"></i>
 
-<h2 id="completedCount">
+<h2 id="paidCount">0</h2>
 
-0
-
-</h2>
-
-<p>Completed</p>
+<p>Payments Received</p>
 
 </div>
 
 <div class="card">
 
-<i class="fa-solid fa-receipt"></i>
+<i class="fa-solid fa-indian-rupee-sign"></i>
 
-<h2>
+<h2>₹12.8L</h2>
 
-145
-
-</h2>
-
-<p>Today's Orders</p>
+<p>Total Collection</p>
 
 </div>
 
@@ -153,7 +140,7 @@ Manage food orders and token queue.
 
 <button onclick="addRequest()">
 
-➕ New Order
+➕ Add Demo Payment
 
 </button>
 
@@ -165,7 +152,7 @@ Manage food orders and token queue.
 
 <button onclick="downloadReport()">
 
-📊 Sales Report
+📊 Download Report
 
 </button>
 
@@ -173,7 +160,7 @@ Manage food orders and token queue.
 
 <h2 class="heading">
 
-🍕 Current Orders
+💳 Pending Fee Payments
 
 </h2>
 
@@ -185,7 +172,7 @@ type="text"
 
 id="searchInput"
 
-placeholder="Search Student or Food..."
+placeholder="Search Student..."
 
 onkeyup="searchRequest()">
 
@@ -201,7 +188,7 @@ onkeyup="searchRequest()">
 
 <th>Student</th>
 
-<th>Order</th>
+<th>Amount</th>
 
 <th>Status</th>
 
@@ -233,7 +220,7 @@ onkeyup="searchRequest()">
 
 </div>
 
-<script src="staff-canteen.js"></script>
+<script src="staff-fee.js"></script>
 
 </body>
 

@@ -21,11 +21,14 @@ const nameElement = document.getElementById("studentName");
 const rollElement = document.getElementById("studentRoll");
 const deptElement = document.getElementById("studentDepartment");
 const emailElement = document.getElementById("studentEmail");
+const yearElement = document.getElementById("studentYear");
 
 if (nameElement) nameElement.textContent = studentName;
 if (rollElement) rollElement.innerHTML = `🎓 Roll No : ${studentRoll}`;
 if (deptElement) deptElement.innerHTML = `🏫 Department : ${studentDepartment}`;
 if (emailElement) emailElement.innerHTML = `📧 Email : ${studentEmail}`;
+if (yearElement)
+    yearElement.innerHTML = `📚 Year : ${localStorage.getItem("studentYear")}`;
 
 // ------------------------------
 // Dynamic Greeting
@@ -126,6 +129,18 @@ function goDean() {
 
 function goCanteen() {
   window.location.href = "canteen.html";
+}
+
+function goAdmin() {
+
+    window.location.href = "admin.html";
+
+}
+
+function goFeeCounter(){
+
+    window.location.href = "fee.html";
+
 }
 
 // ------------------------------

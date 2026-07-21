@@ -1,6 +1,6 @@
 
 // ======================================
-// TRANSPORT DASHBOARD V2.0
+// ADMIN DASHBOARD V2.0
 // ======================================
 
 // -------------------------------
@@ -11,19 +11,19 @@ let requests = [
 
 {
     student:"Rahul Sharma",
-    request:"New Bus Pass",
+    request:"New Student Registration",
     status:"Pending"
 },
 
 {
     student:"Priya Singh",
-    request:"Bus Pass Renewal",
+    request:"ID Card Request",
     status:"Pending"
 },
 
 {
     student:"Aman Verma",
-    request:"Route Change",
+    request:"Document Verification",
     status:"Pending"
 }
 
@@ -36,7 +36,7 @@ let requests = [
 document.addEventListener("DOMContentLoaded",()=>{
 
     const staffName =
-        localStorage.getItem("staffName") || "Transport Officer";
+        localStorage.getItem("staffName") || "Administrator";
 
     document.getElementById("staffName").innerHTML =
         `Welcome, ${staffName}`;
@@ -52,15 +52,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 
 // -------------------------------
-// Clock
+// Live Clock
 // -------------------------------
 
 function updateClock(){
 
-    const now = new Date();
-
     document.getElementById("clock").innerHTML =
-        now.toLocaleString();
+        new Date().toLocaleString();
 
 }
 
@@ -77,7 +75,7 @@ function renderTable(){
 
     requests.forEach((item,index)=>{
 
-        table.innerHTML+=`
+        table.innerHTML += `
 
 <tr>
 
@@ -86,7 +84,7 @@ function renderTable(){
 <td>${item.request}</td>
 
 <td class="status"
-style="color:${item.status==="Approved"?"green":"orange"}">
+style="color:${item.status==="Verified"?"green":"orange"}">
 
 ${item.status}
 
@@ -96,11 +94,11 @@ ${item.status}
 
 <button
 
-onclick="approveRequest(${index})"
+onclick="verifyRequest(${index})"
 
-${item.status==="Approved"?"disabled":""}>
+${item.status==="Verified"?"disabled":""}>
 
-${item.status==="Approved"?"Done":"Approve"}
+${item.status==="Verified"?"Done":"Verify"}
 
 </button>
 
@@ -123,30 +121,30 @@ function updateCards(){
     const pending =
         requests.filter(r=>r.status==="Pending").length;
 
-    const approved =
-        requests.filter(r=>r.status==="Approved").length;
+    const verified =
+        requests.filter(r=>r.status==="Verified").length;
 
     document.getElementById("pendingCount").innerHTML =
         pending;
 
-    document.getElementById("approvedCount").innerHTML =
-        approved;
+    document.getElementById("verifiedCount").innerHTML =
+        verified;
 
 }
 
 // -------------------------------
-// Approve Request
+// Verify Request
 // -------------------------------
 
-function approveRequest(index){
+function verifyRequest(index){
 
-    requests[index].status="Approved";
+    requests[index].status="Verified";
 
     renderTable();
 
     updateCards();
 
-    showToast("Bus Pass Approved");
+    showToast("Request Verified Successfully");
 
 }
 
@@ -159,30 +157,21 @@ function addRequest(){
     const students=[
 
         "Neha Sharma",
-
         "Riya Kapoor",
-
-        "Vansh Jain",
-
         "Karan Mehta",
-
         "Harsh Gupta",
-
-        "Ananya Verma"
+        "Ananya Verma",
+        "Vansh Jain"
 
     ];
 
     const requestTypes=[
 
-        "New Bus Pass",
-
-        "Bus Pass Renewal",
-
-        "Route Change",
-
-        "Lost Bus Pass",
-
-        "Duplicate Bus Pass"
+        "New Student Registration",
+        "ID Card Request",
+        "Document Verification",
+        "Address Update",
+        "Duplicate ID Card"
 
     ];
 
@@ -200,7 +189,7 @@ function addRequest(){
 
     updateCards();
 
-    showToast("New Transport Request Added");
+    showToast("New Administrative Request Added");
 
 }
 
@@ -226,18 +215,11 @@ function searchRequest(){
         const request =
             row.cells[1].innerText.toLowerCase();
 
-        if(student.includes(keyword) ||
-           request.includes(keyword)){
-
-            row.style.display="";
-
-        }
-
-        else{
-
-            row.style.display="none";
-
-        }
+        row.style.display =
+            student.includes(keyword) ||
+            request.includes(keyword)
+            ? ""
+            : "none";
 
     });
 
@@ -263,7 +245,7 @@ function refreshTable(){
 
 function downloadReport(){
 
-    showToast("Transport Report Downloaded");
+    showToast("Admin Report Downloaded");
 
 }
 
@@ -273,10 +255,11 @@ function downloadReport(){
 
 function showToast(message){
 
-    const toast=document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
-    document.getElementById("toastMessage").innerHTML=
-    "✔ "+message;
+    document.getElementById("toastMessage").innerHTML =
+        "✔ " + message;
 
     toast.classList.add("show");
 

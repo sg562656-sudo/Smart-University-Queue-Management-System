@@ -1,49 +1,208 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Office (Staff) | Smart University</title>
-    <link rel="stylesheet" href="transport.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Transport Dashboard</title>
+
+<link rel="stylesheet" href="staff-transport.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
+
 <body>
 
 <div class="sidebar">
-    <h2>🎓 Smart University</h2>
-    <ul>
-        <li class="active"><i class="fa-solid fa-bus"></i> Transport</li>
-        <li><i class="fa-solid fa-file-lines"></i> <a href="staff-registrar.html" style="color:white;text-decoration:none;">Registrar</a></li>
-        <li><i class="fa-solid fa-user-tie"></i> <a href="staff-dean.html" style="color:white;text-decoration:none;">Dean</a></li>
-        <li><i class="fa-solid fa-utensils"></i> <a href="staff-canteen.html" style="color:white;text-decoration:none;">Canteen</a></li>
-        <li onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
-    </ul>
+
+<h2>🚌 Smart University</h2>
+
+<ul>
+
+<li class="active">
+<i class="fa-solid fa-bus"></i>
+Transport Dashboard
+</li>
+
+<li>
+<i class="fa-solid fa-id-card"></i>
+Bus Passes
+</li>
+
+<li>
+<i class="fa-solid fa-route"></i>
+Route Changes
+</li>
+
+<li>
+<i class="fa-solid fa-clock"></i>
+Queue Management
+</li>
+
+<li onclick="logout()">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</li>
+
+</ul>
+
 </div>
 
 <div class="main">
-    <div class="topbar">
-        <h2 id="welcome">Staff Transport Dashboard</h2>
-        <div id="clock"></div>
-    </div>
 
-    <h2 class="heading">🎟 Manage Queue</h2>
-    <section class="queue-section">
-        <div class="queue-card">
-            <h3>Currently Serving Token</h3>
-            <h1 id="currentToken">None</h1>
-            <p>Waiting in queue: <span id="waitingCount">0</span></p>
-        </div>
-        <div class="queue-card">
-            <h3>Actions</h3>
-            <button onclick="callNextToken()" style="background: #28a745; color: white; padding: 15px 30px; font-size: 1.2rem; border-radius: 8px; border: none; cursor: pointer;">
-                Call Next Student
-            </button>
-        </div>
-    </section>
+<div class="topbar">
+
+<h2>Transport Office</h2>
+
+<div id="clock"></div>
+
+</div>
+
+<section class="welcome-card">
+
+<h1 id="staffName">
+
+Welcome Transport Officer
+
+</h1>
+
+<p>
+
+Manage bus pass approvals, renewals and transport services.
+
+</p>
+
+</section>
+
+<section class="stats">
+
+<div class="card">
+
+<i class="fa-solid fa-ticket"></i>
+
+<h2 id="pendingCount">3</h2>
+
+<p>Pending Requests</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-circle-check"></i>
+
+<h2 id="approvedCount">0</h2>
+
+<p>Approved</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-bus"></i>
+
+<h2>42</h2>
+
+<p>University Buses</p>
+
+</div>
+
+</section>
+
+<h2 class="heading">
+
+⚡ Quick Actions
+
+</h2>
+
+<section class="actions">
+
+<button onclick="addRequest()">
+
+➕ Add Demo Request
+
+</button>
+
+<button onclick="refreshTable()">
+
+🔄 Refresh
+
+</button>
+
+<button onclick="downloadReport()">
+
+📊 Download Report
+
+</button>
+
+</section>
+
+<h2 class="heading">
+
+🚌 Bus Pass Requests
+
+</h2>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Student..."
+onkeyup="searchRequest()">
+
+</div>
+
+<div class="activity-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Student</th>
+
+<th>Request</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="requestTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<footer>
+
+© 2026 Smart University Queue Management System
+
+</footer>
+
+</div>
+
+<div id="toast">
+
+<span id="toastMessage"></span>
 
 </div>
 
 <script src="staff-transport.js"></script>
+
 </body>
+
 </html>

@@ -1,124 +1,528 @@
-// canteen.js
-const menuItems = [
-    { name: "Veg Burger", price: 60, img: "https://source.unsplash.com/random/300x200/?burger" },
-    { name: "Paneer Wrap", price: 80, img: "https://source.unsplash.com/random/300x200/?wrap" },
-    { name: "Cold Coffee", price: 50, img: "https://source.unsplash.com/random/300x200/?coffee" },
-    { name: "French Fries", price: 70, img: "https://source.unsplash.com/random/300x200/?fries" }
-];
+// ==========================================
+// SMART UNIVERSITY QUEUE MANAGEMENT SYSTEM
+// CANTEEN OFFICE
+// PART 1
+// ==========================================
 
-function loadMenu() {
-    const container = document.getElementById('menuGrid');
-    container.innerHTML = '';
-    
-    menuItems.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'menu-item';
-        div.innerHTML = `
-            <img src="${item.img}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>₹${item.price}</p>
-            <button class="btn" onclick="addToOrder('${item.name}')">Add to Order</button>
-        `;
-        container.appendChild(div);
-    });
+
+// ==========================================
+// LOGIN CHECK
+// ==========================================
+
+const studentName =
+    localStorage.getItem("studentName");
+
+const studentRoll =
+    localStorage.getItem("studentRoll");
+
+const studentDepartment =
+    localStorage.getItem("studentDepartment");
+
+const studentEmail =
+    localStorage.getItem("studentEmail");
+
+if(!studentName){
+
+    alert("Please login first.");
+
+    window.location.href="login.html";
+
 }
 
-function getOrders() {
-    return JSON.parse(localStorage.getItem('canteenOrders')) || [];
+
+// ==========================================
+// DISPLAY STUDENT DETAILS
+// ==========================================
+
+document.getElementById("welcome").innerHTML =
+`Welcome, ${studentName} 👋`;
+
+document.getElementById("studentName").innerHTML =
+studentName;
+
+document.getElementById("studentRoll").innerHTML =
+`Roll Number : ${studentRoll}`;
+
+document.getElementById("studentDepartment").innerHTML =
+`Department : ${studentDepartment}`;
+
+
+// ==========================================
+// LIVE CLOCK
+// ==========================================
+
+function updateClock(){
+
+    const now = new Date();
+
+    document.getElementById("clock").innerHTML =
+    now.toLocaleString();
+
 }
 
-function saveOrders(orders) {
-    localStorage.setItem('canteenOrders', JSON.stringify(orders));
-}
-
-function addToOrder(itemName) {
-    const studentName = localStorage.getItem('studentName') || 'Student';
-    const rollNo = localStorage.getItem('studentRoll') || 'DemoRoll';
-    
-    let orders = getOrders();
-    const orderId = 'C-' + (100 + orders.length + 1);
-    
-    const newOrder = {
-        id: orderId,
-        studentName: studentName,
-        rollNo: rollNo,
-        item: itemName,
-        time: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
-        status: 'Waiting'
-    };
-    
-    orders.push(newOrder);
-    saveOrders(orders);
-    
-    document.getElementById('myToken').textContent = orderId;
-    alert(`✅ ${itemName} added to your order!\nYour token is ${orderId}`);
-    fetchQueueStatus();
-}
-
-function fetchQueueStatus() {
-    let orders = getOrders();
-    
-    // Live Queue Tab
-    const waitingOrders = orders.filter(o => o.status === 'Waiting');
-    const waitingList = document.getElementById('waitingList');
-    if (waitingList) {
-        waitingList.innerHTML = '';
-        waitingOrders.forEach(o => {
-            const li = document.createElement('li');
-            li.textContent = `${o.id} - ${o.item} (${o.studentName})`;
-            waitingList.appendChild(li);
-        });
-    }
-    
-    // Currently Serving (finding the last Served or first Waiting)
-    const servedOrders = orders.filter(o => o.status === 'Served' || o.status === 'Ready');
-    const currentlyServing = servedOrders.length > 0 ? servedOrders[servedOrders.length - 1].id : 'None';
-    const currentTokenEl = document.getElementById("currentToken");
-    if (currentTokenEl) currentTokenEl.innerHTML = currentlyServing;
-    
-    // My Orders Tab
-    const rollNo = localStorage.getItem('studentRoll') || 'DemoRoll';
-    const myOrders = orders.filter(o => o.rollNo === rollNo);
-    const ordersBody = document.getElementById('ordersBody');
-    if (ordersBody) {
-        ordersBody.innerHTML = '';
-        myOrders.reverse().forEach(o => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${o.id}</td>
-                <td>${o.item}</td>
-                <td>${o.time}</td>
-                <td><strong style="color: ${o.status === 'Waiting' ? 'orange' : 'green'}">${o.status}</strong></td>
-            `;
-            ordersBody.appendChild(tr);
-        });
-    }
-}
-
-setInterval(() => {
-  fetchQueueStatus();
-}, 2000);
-
-
-function switchTab(n) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    document.getElementById(`tab-${n}`).classList.add('active');
-}
-
-function showNotifications() {
-    alert("🍔 Canteen Updates:\n\n• Special Offer on Combo Meals\n• Queue wait time ~8 minutes");
-}
-
-function logout() {
-    window.location.href = "index.html";
-}
-
-// Clock
-function updateClock() {
-    document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
-}
-setInterval(updateClock, 1000);
 updateClock();
 
-// Initialize
-loadMenu();
+setInterval(updateClock,1000);
+
+
+// ==========================================
+// CART
+// ==========================================
+
+let cart=[];
+
+let total=0;
+
+
+// ==========================================
+// ADD ITEM
+// ==========================================
+
+function addToCart(name,price){
+
+    cart.push({
+
+        name,
+        price
+
+    });
+
+    total += price;
+
+    updateCart();
+
+}
+
+
+// ==========================================
+// UPDATE CART
+// ==========================================
+
+function updateCart(){
+
+    const list =
+    document.getElementById("cartItems");
+
+    const totalBox =
+    document.getElementById("cartTotal");
+
+    list.innerHTML="";
+
+    cart.forEach(item=>{
+
+        const li=document.createElement("li");
+
+        li.innerHTML=
+        `${item.name} - ₹${item.price}`;
+
+        list.appendChild(li);
+
+    });
+
+    totalBox.innerHTML=
+    `₹${total}`;
+
+}
+
+
+// ==========================================
+// CLEAR CART
+// ==========================================
+
+function clearCart(){
+
+    cart=[];
+
+    total=0;
+
+    updateCart();
+
+}
+
+
+// ==========================================
+// QUEUE TOKEN
+// ==========================================
+
+function generateToken(){
+
+fetch("http://localhost:5000/api/queue/generate",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+userId:studentEmail,
+
+department:"canteen"
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.success){
+
+document.getElementById("tokenNumber").innerHTML=
+data.token;
+
+localStorage.setItem(
+
+"canteenToken",
+
+data.token
+
+);
+
+alert(
+
+"Token Generated : "+data.token
+
+);
+
+fetchQueueStatus();
+
+}
+
+else{
+
+alert(data.message);
+
+}
+
+})
+
+.catch(err=>{
+
+console.log(err);
+
+});
+
+}
+
+
+// ==========================================
+// FETCH QUEUE STATUS
+// ==========================================
+
+function fetchQueueStatus(){
+
+fetch(
+
+"http://localhost:5000/api/queue/status/canteen"
+
+)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.success){
+
+document.getElementById(
+
+"currentToken"
+
+).innerHTML=
+
+data.current_token;
+
+document.getElementById(
+
+"studentsAhead"
+
+).innerHTML=
+
+data.waiting_count;
+
+document.getElementById(
+
+"waitingTime"
+
+).innerHTML=
+
+(data.waiting_count*3)+" Minutes";
+
+}
+
+});
+
+}
+
+
+// ==========================================
+// AUTO REFRESH QUEUE
+// ==========================================
+
+fetchQueueStatus();
+
+setInterval(fetchQueueStatus,5000);
+
+
+// ==========================================
+// NAVIGATION
+// ==========================================
+
+function goDashboard(){
+
+window.location.href="index.html";
+
+}
+
+function goTransport(){
+
+window.location.href="transport.html";
+
+}
+
+function goRegistrar(){
+
+window.location.href="registrar.html";
+
+}
+
+function goDean(){
+
+window.location.href="dean.html";
+
+}
+
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+function logout(){
+
+if(confirm("Logout?")){
+
+localStorage.clear();
+
+window.location.href="login.html";
+
+}
+
+}
+
+console.log("Canteen Part 1 Loaded");
+
+// ==========================================
+// CANTEEN PART 2
+// ==========================================
+
+
+// ==========================================
+// PLACE ORDER
+// ==========================================
+
+function placeOrder(){
+
+    if(cart.length===0){
+
+        alert("🛒 Please add at least one item.");
+
+        return;
+
+    }
+
+    generateToken();
+
+    document.getElementById("orderStatus").innerHTML =
+    "👨‍🍳 Preparing Your Order...";
+
+    showToast("✅ Order Placed Successfully!");
+
+    localStorage.setItem("canteenCart",JSON.stringify(cart));
+
+    localStorage.setItem("canteenTotal",total);
+
+    setTimeout(()=>{
+
+        document.getElementById("orderStatus").innerHTML =
+        "🍽️ Order Ready for Pickup";
+
+        showToast("🍔 Your Order is Ready!");
+
+    },10000);
+
+    setTimeout(()=>{
+
+        document.getElementById("orderStatus").innerHTML =
+        "✅ Order Collected";
+
+        showToast("Thank You! Visit Again 😊");
+
+        clearCart();
+
+    },18000);
+
+}
+
+
+// ==========================================
+// LOAD PREVIOUS CART
+// ==========================================
+
+const savedCart =
+localStorage.getItem("canteenCart");
+
+const savedTotal =
+localStorage.getItem("canteenTotal");
+
+if(savedCart){
+
+    cart = JSON.parse(savedCart);
+
+    total = Number(savedTotal);
+
+    updateCart();
+
+}
+
+
+// ==========================================
+// UPDATE CART
+// ==========================================
+
+function updateCart(){
+
+    const list =
+    document.getElementById("cartItems");
+
+    list.innerHTML="";
+
+    if(cart.length===0){
+
+        list.innerHTML="<li>No items added.</li>";
+
+        document.getElementById("cartTotal").innerHTML="0";
+
+        localStorage.removeItem("canteenCart");
+
+        localStorage.removeItem("canteenTotal");
+
+        return;
+
+    }
+
+    cart.forEach(item=>{
+
+        const li=document.createElement("li");
+
+        li.innerHTML=
+        `${item.name} - ₹${item.price}`;
+
+        list.appendChild(li);
+
+    });
+
+    document.getElementById("cartTotal").innerHTML=total;
+
+    localStorage.setItem(
+
+        "canteenCart",
+
+        JSON.stringify(cart)
+
+    );
+
+    localStorage.setItem(
+
+        "canteenTotal",
+
+        total
+
+    );
+
+}
+
+
+// ==========================================
+// TOAST MESSAGE
+// ==========================================
+
+function showToast(message){
+
+    const toast=document.createElement("div");
+
+    toast.className="toast";
+
+    toast.innerHTML=message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(()=>{
+
+        toast.classList.add("show");
+
+    },100);
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },3000);
+
+    setTimeout(()=>{
+
+        toast.remove();
+
+    },3500);
+
+}
+
+
+// ==========================================
+// RANDOM SPECIAL OFFER
+// ==========================================
+
+const offers=[
+
+"🍕 Buy 1 Pizza Get Coke Free",
+
+"☕ Coffee at ₹49 Today",
+
+"🍔 Burger Combo ₹149",
+
+"🥤 Cold Coffee Flat 25% OFF",
+
+"🍟 Free Fries on Orders Above ₹250"
+
+];
+
+setInterval(()=>{
+
+    const random=
+
+    Math.floor(Math.random()*offers.length);
+
+    console.log(
+
+        "Offer :",
+
+        offers[random]
+
+    );
+
+},20000);
+
+
+// ==========================================
+// PAGE LOADED
+// ==========================================
+
+window.addEventListener("load",()=>{
+
+    showToast("🍴 Welcome to Smart University Canteen");
+
+});
+

@@ -1,81 +1,329 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dean Office (Staff) | Smart University</title>
-    <link rel="stylesheet" href="dean.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dean Dashboard | Smart University</title>
+
+<link rel="stylesheet" href="staff-dean.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
+
 <body>
 
+<!-- Sidebar -->
+
 <div class="sidebar">
-    <h2>🎓 Smart University</h2>
-    <ul>
-        <li><i class="fa-solid fa-bus"></i> <a href="staff-transport.html" style="color:white;text-decoration:none;">Transport</a></li>
-        <li><i class="fa-solid fa-file-lines"></i> <a href="staff-registrar.html" style="color:white;text-decoration:none;">Registrar</a></li>
-        <li class="active"><i class="fa-solid fa-user-tie"></i> Dean</li>
-        <li><i class="fa-solid fa-utensils"></i> <a href="staff-canteen.html" style="color:white;text-decoration:none;">Canteen</a></li>
-        <li onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
-    </ul>
+
+<h2>🎓 Smart University</h2>
+
+<ul>
+
+<li class="active">
+
+<i class="fa-solid fa-user-tie"></i>
+
+Dean Dashboard
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-calendar-check"></i>
+
+Appointments
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+Academic Requests
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-users"></i>
+
+Faculty
+
+</li>
+
+<li onclick="logout()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</li>
+
+</ul>
+
 </div>
+
+<!-- Main -->
 
 <div class="main">
-    <div class="topbar">
-        <h2 id="welcome">Staff Dean Dashboard</h2>
-        <div id="clock"></div>
-    </div>
 
-    <h2 class="heading">🎟 Manage Queue</h2>
-    <section class="queue-section" style="display: flex; gap: 20px;">
-        <div class="queue-card" style="background: white; padding: 20px; border-radius: 8px;">
-            <h3>Currently Serving Token</h3>
-            <h1 id="currentToken">None</h1>
-            <p>Waiting in queue: <span id="waitingCount">0</span></p>
-        </div>
-        <div class="queue-card" style="background: white; padding: 20px; border-radius: 8px;">
-            <h3>Actions</h3>
-            <button onclick="callNextToken()" style="background: #28a745; color: white; padding: 15px 30px; font-size: 1.2rem; border-radius: 8px; border: none; cursor: pointer;">
-                Call Next Student
-            </button>
-        </div>
-    </section>
+<div class="topbar">
+
+<h2>Dean Office Dashboard</h2>
+
+<div id="clock"></div>
 
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        fetchQueueStatus();
-        setInterval(() => {
-            document.getElementById("clock").innerText = new Date().toLocaleTimeString();
-        }, 1000);
-    });
+<!-- Welcome -->
 
-    let currentTokenNum = 5;
-    let waitingCountNum = 3;
+<section class="welcome-card">
 
-    function fetchQueueStatus() {
-        // Dummy logic instead of backend fetch
-        document.getElementById("currentToken").innerText = "D-" + currentTokenNum;
-        document.getElementById("waitingCount").innerText = waitingCountNum;
-    }
+<h1 id="staffName">
 
-    function callNextToken() {
-        if (waitingCountNum > 0) {
-            currentTokenNum++;
-            waitingCountNum--;
-            alert("Next token called: D-" + currentTokenNum);
-            fetchQueueStatus();
-        } else {
-            alert("No more students in queue.");
-        }
-    }
+Welcome Dean
 
-    function logout() {
-        localStorage.clear();
-        window.location.href = "login.html";
-    }
-</script>
+</h1>
+
+<p>
+
+Manage academic approvals, appointments and faculty requests.
+
+</p>
+
+</section>
+
+<!-- Statistics -->
+
+<section class="stats">
+
+<div class="card">
+
+<i class="fa-solid fa-calendar-check"></i>
+
+<h2 id="appointments">
+
+18
+
+</h2>
+
+<p>Today's Appointments</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-file-circle-check"></i>
+
+<h2 id="approvals">
+
+9
+
+</h2>
+
+<p>Pending Approvals</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-users"></i>
+
+<h2 id="faculty">
+
+42
+
+</h2>
+
+<p>Faculty Members</p>
+
+</div>
+
+</section>
+
+<!-- Quick Actions -->
+
+<h2 class="heading">
+
+⚡ Quick Actions
+
+</h2>
+
+<section class="actions">
+
+<button onclick="approveRequests()">
+
+✅ Approve Requests
+
+</button>
+
+<button onclick="viewAppointments()">
+
+📅 View Appointments
+
+</button>
+
+<button onclick="facultyMeeting()">
+
+👨‍🏫 Faculty Meeting
+
+</button>
+
+<button onclick="viewReports()">
+
+📊 Reports
+
+</button>
+
+
+<button onclick="addRequest()">
+
+➕ Add Demo Request
+
+</button>
+
+</section>
+
+<!-- Recent Activities -->
+
+<h2 class="heading">
+
+📋 Recent Activities
+
+</h2>
+
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="🔍 Search Student..."
+onkeyup="searchRequest()">
+
+</div>
+
+
+
+<div class="activity-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Student</th>
+
+<th>Request</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="requestTable">
+
+<tr>
+
+<td>Rahul Sharma</td>
+
+<td>Leave Approval</td>
+
+<td class="status">Pending</td>
+
+<td>
+
+<button onclick="approveRequest(this)">
+
+Approve
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Shreya Aggarwal</td>
+
+<td>Scholarship Recommendation</td>
+
+<td class="status">Pending</td>
+
+<td>
+
+<button onclick="approveRequest(this)">
+
+Approve
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Priya Singh</td>
+
+<td>Dean Appointment</td>
+
+<td class="status">Pending</td>
+
+<td>
+
+<button onclick="approveRequest(this)">
+
+Approve
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<footer>
+
+© 2026 Smart University Queue Management System
+
+</footer>
+
+</div>
+
+
+<!-- Toast Notification -->
+
+<div id="toast">
+
+<span id="toastMessage"></span>
+
+</div>
+
+
+<script src="staff-dean.js"></script>
+
 </body>
+
 </html>
+```

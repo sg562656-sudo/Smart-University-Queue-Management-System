@@ -1,6 +1,6 @@
 
 // ======================================
-// TRANSPORT DASHBOARD V2.0
+// CANTEEN DASHBOARD V2.0
 // ======================================
 
 // -------------------------------
@@ -11,20 +11,20 @@ let requests = [
 
 {
     student:"Rahul Sharma",
-    request:"New Bus Pass",
-    status:"Pending"
+    order:"Burger + Coke",
+    status:"Preparing"
 },
 
 {
     student:"Priya Singh",
-    request:"Bus Pass Renewal",
-    status:"Pending"
+    order:"Pizza",
+    status:"Preparing"
 },
 
 {
     student:"Aman Verma",
-    request:"Route Change",
-    status:"Pending"
+    order:"Sandwich + Juice",
+    status:"Preparing"
 }
 
 ];
@@ -36,7 +36,7 @@ let requests = [
 document.addEventListener("DOMContentLoaded",()=>{
 
     const staffName =
-        localStorage.getItem("staffName") || "Transport Officer";
+        localStorage.getItem("staffName") || "Canteen Staff";
 
     document.getElementById("staffName").innerHTML =
         `Welcome, ${staffName}`;
@@ -52,15 +52,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 
 // -------------------------------
-// Clock
+// Live Clock
 // -------------------------------
 
 function updateClock(){
 
-    const now = new Date();
-
     document.getElementById("clock").innerHTML =
-        now.toLocaleString();
+        new Date().toLocaleString();
 
 }
 
@@ -77,16 +75,16 @@ function renderTable(){
 
     requests.forEach((item,index)=>{
 
-        table.innerHTML+=`
+        table.innerHTML += `
 
 <tr>
 
 <td>${item.student}</td>
 
-<td>${item.request}</td>
+<td>${item.order}</td>
 
 <td class="status"
-style="color:${item.status==="Approved"?"green":"orange"}">
+style="color:${item.status==="Completed"?"green":"orange"}">
 
 ${item.status}
 
@@ -96,11 +94,11 @@ ${item.status}
 
 <button
 
-onclick="approveRequest(${index})"
+onclick="completeOrder(${index})"
 
-${item.status==="Approved"?"disabled":""}>
+${item.status==="Completed"?"disabled":""}>
 
-${item.status==="Approved"?"Done":"Approve"}
+${item.status==="Completed"?"Done":"Complete"}
 
 </button>
 
@@ -121,37 +119,37 @@ ${item.status==="Approved"?"Done":"Approve"}
 function updateCards(){
 
     const pending =
-        requests.filter(r=>r.status==="Pending").length;
+        requests.filter(r=>r.status==="Preparing").length;
 
-    const approved =
-        requests.filter(r=>r.status==="Approved").length;
+    const completed =
+        requests.filter(r=>r.status==="Completed").length;
 
     document.getElementById("pendingCount").innerHTML =
         pending;
 
-    document.getElementById("approvedCount").innerHTML =
-        approved;
+    document.getElementById("completedCount").innerHTML =
+        completed;
 
 }
 
 // -------------------------------
-// Approve Request
+// Complete Order
 // -------------------------------
 
-function approveRequest(index){
+function completeOrder(index){
 
-    requests[index].status="Approved";
+    requests[index].status="Completed";
 
     renderTable();
 
     updateCards();
 
-    showToast("Bus Pass Approved");
+    showToast("Order Completed");
 
 }
 
 // -------------------------------
-// Add Demo Request
+// Add Demo Order
 // -------------------------------
 
 function addRequest(){
@@ -159,40 +157,40 @@ function addRequest(){
     const students=[
 
         "Neha Sharma",
-
         "Riya Kapoor",
-
-        "Vansh Jain",
-
-        "Karan Mehta",
-
         "Harsh Gupta",
-
+        "Karan Mehta",
+        "Vansh Jain",
         "Ananya Verma"
 
     ];
 
-    const requestTypes=[
+    const foods=[
 
-        "New Bus Pass",
-
-        "Bus Pass Renewal",
-
-        "Route Change",
-
-        "Lost Bus Pass",
-
-        "Duplicate Bus Pass"
+        "Burger",
+        "Pizza",
+        "Cold Coffee",
+        "Pasta",
+        "Momos",
+        "Veg Thali",
+        "Sandwich",
+        "French Fries",
+        "Juice",
+        "Noodles"
 
     ];
 
+    const food =
+        foods[Math.floor(Math.random()*foods.length)];
+
     requests.push({
 
-        student:students[Math.floor(Math.random()*students.length)],
+        student:
+        students[Math.floor(Math.random()*students.length)],
 
-        request:requestTypes[Math.floor(Math.random()*requestTypes.length)],
+        order:food,
 
-        status:"Pending"
+        status:"Preparing"
 
     });
 
@@ -200,7 +198,7 @@ function addRequest(){
 
     updateCards();
 
-    showToast("New Transport Request Added");
+    showToast("New Food Order Added");
 
 }
 
@@ -223,21 +221,14 @@ function searchRequest(){
         const student =
             row.cells[0].innerText.toLowerCase();
 
-        const request =
+        const order =
             row.cells[1].innerText.toLowerCase();
 
-        if(student.includes(keyword) ||
-           request.includes(keyword)){
-
-            row.style.display="";
-
-        }
-
-        else{
-
-            row.style.display="none";
-
-        }
+        row.style.display =
+            student.includes(keyword) ||
+            order.includes(keyword)
+            ? ""
+            : "none";
 
     });
 
@@ -263,7 +254,7 @@ function refreshTable(){
 
 function downloadReport(){
 
-    showToast("Transport Report Downloaded");
+    showToast("Sales Report Downloaded");
 
 }
 
@@ -273,10 +264,11 @@ function downloadReport(){
 
 function showToast(message){
 
-    const toast=document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
-    document.getElementById("toastMessage").innerHTML=
-    "✔ "+message;
+    document.getElementById("toastMessage").innerHTML =
+        "✔ " + message;
 
     toast.classList.add("show");
 

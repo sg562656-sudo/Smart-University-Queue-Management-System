@@ -1,97 +1,507 @@
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-body {
-    background: #f8f9fa;
-    display: flex;
+/* ==========================================
+   SMART UNIVERSITY - CANTEEN CSS
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-.sidebar {
-    width: 260px;
-    background: linear-gradient(180deg, #4db6fc, #62c8f0);
-    color: white;
-    height: 100vh;
-    position: fixed;
-    padding: 30px 20px;
+body{
+    display:flex;
+    background:#f5f7fb;
 }
 
-.logo h2 { font-size: 24px; margin-bottom: 30px; }
+/* ==============================
+   SIDEBAR
+============================== */
 
-.sidebar ul { list-style: none; }
-.sidebar li {
-    padding: 15px;
-    margin: 8px 0;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.sidebar li:hover, .sidebar li.active {
-    background: rgba(255,255,255,0.2);
-}
+.sidebar{
 
-.main {
-    margin-left: 260px;
-    width: calc(100% - 260px);
-    padding: 30px;
+    width:260px;
+    height:100vh;
+    position:fixed;
+
+    background:linear-gradient(180deg,#ff9800,#fb8c00);
+
+    color:white;
+
+    padding:30px 20px;
+
 }
 
-.topbar {
-    background: white;
-    padding: 18px 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
+.sidebar h2{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
 }
 
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+.sidebar ul{
+
+    list-style:none;
+
 }
 
-.menu-item {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-    text-align: center;
-    transition: 0.3s;
+.sidebar li{
+
+    padding:15px 18px;
+
+    margin:8px 0;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 
-.menu-item:hover {
-    transform: translateY(-10px);
+.sidebar li:hover,
+.sidebar .active{
+
+    background:rgba(255,255,255,.22);
+
 }
 
-.menu-item img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 15px;
+/* ==============================
+   MAIN
+============================== */
+
+.main{
+
+    margin-left:260px;
+
+    width:calc(100% - 260px);
+
+    padding:30px;
+
 }
 
-.btn {
-    background: #298fca;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 10px;
-    cursor: pointer;
+/* ==============================
+   TOPBAR
+============================== */
+
+.topbar{
+
+    background:white;
+
+    padding:20px 30px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+    margin-bottom:25px;
+
 }
 
-.token {
-    font-size: 60px;
-    font-weight: bold;
-    color: #298fca;
-    margin: 15px 0;
+/* ==============================
+   HEADINGS
+============================== */
+
+.heading{
+
+    margin:28px 0 15px;
+
+    color:#333;
+
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-    .sidebar { width: 100%; position: relative; height: auto; }
-    .main { margin-left: 0; width: 100%; }
+/* ==============================
+   STUDENT CARD
+============================== */
+
+.student-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
 }
 
+.profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.avatar{
+
+    width:85px;
+
+    height:85px;
+
+    border-radius:50%;
+
+    background:#ff9800;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:35px;
+
+}
+
+/* ==============================
+   SPECIALS
+============================== */
+
+.specials{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.special-card{
+
+    background:linear-gradient(135deg,#ff9800,#ffb74d);
+
+    color:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 10px 20px rgba(255,152,0,.25);
+
+}
+
+.special-card h3{
+
+    margin-top:10px;
+
+    font-size:28px;
+
+}
+
+/* ==============================
+   FOOD MENU
+============================== */
+
+.food-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:22px;
+
+}
+
+.food-card{
+
+    background:white;
+
+    padding:25px;
+
+    text-align:center;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.food-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.food-card h3{
+
+    font-size:25px;
+
+    margin-bottom:10px;
+
+}
+
+.food-card p{
+
+    font-size:22px;
+
+    color:#ff9800;
+
+    margin-bottom:15px;
+
+}
+
+.food-card button{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#ff9800;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+.food-card button:hover{
+
+    background:#f57c00;
+
+}
+
+/* ==============================
+   CART
+============================== */
+
+.cart-box{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+.cart-box ul{
+
+    margin-bottom:20px;
+
+    padding-left:20px;
+
+}
+
+.cart-box h3{
+
+    color:#ff9800;
+
+}
+
+/* ==============================
+   QUEUE
+============================== */
+
+.queue-section{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:20px;
+
+}
+
+.queue-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+.queue-card h1{
+
+    color:#ff9800;
+
+    font-size:42px;
+
+    margin:15px 0;
+
+}
+
+.queue-card button{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#ff9800;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+/* ==============================
+   ORDER STATUS
+============================== */
+
+.status-box{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+.status-box h2{
+
+    color:#ff9800;
+
+}
+
+/* ==============================
+   FOOTER
+============================== */
+
+footer{
+
+    text-align:center;
+
+    margin:35px 0 10px;
+
+    color:#666;
+
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media(max-width:992px){
+
+.sidebar{
+
+    width:100%;
+
+    position:relative;
+
+    height:auto;
+
+}
+
+.main{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+}
+
+.place-order-btn{
+
+    width:100%;
+
+    margin-top:18px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#16a34a;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.place-order-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:#15803d;
+
+}
+
+.toast{
+
+position:fixed;
+
+top:30px;
+
+right:30px;
+
+background:#2563eb;
+
+color:white;
+
+padding:15px 25px;
+
+border-radius:10px;
+
+opacity:0;
+
+transform:translateX(100px);
+
+transition:.4s;
+
+z-index:9999;
+
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+.toast.show{
+
+opacity:1;
+
+transform:translateX(0);
+
+}

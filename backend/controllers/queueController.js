@@ -12,7 +12,10 @@ const generateToken = (req, res) => {
             'registrar': 'R',
             'transport': 'T',
             'dean': 'D',
-            'canteen': 'C'
+            'canteen': 'C',
+            'admin': 'A',
+            'fee':'F'
+
         };
         const prefix = prefixMap[department] || 'Q';
 
@@ -25,15 +28,19 @@ const generateToken = (req, res) => {
         const nextNumber = count + 1;
         const tokenNumber = `${prefix}-${nextNumber.toString().padStart(3, '0')}`;
 
+        const firstWaiting = db.queues.filter(
+             q => q.department === department
+        ).length === 0;
+
         const newQueue = {
             id: Date.now().toString(),
             userId,
             department,
             tokenNumber,
-            status: 'waiting',
+            status: firstWaiting ? "serving" : "waiting",
             createdAt: new Date().toISOString()
         };
-
+        
         db.queues.push(newQueue);
         writeDB(db);
 

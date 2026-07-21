@@ -17,9 +17,16 @@
             <li class="active"><i class="fa-solid fa-house"></i> Dashboard</li>
             <li onclick="goTransport()"><i class="fa-solid fa-bus"></i> Transport Office</li>
             <li onclick="goRegistrar()"><i class="fa-solid fa-file-lines"></i> Registrar Office</li>
+            <li onclick="goAdmin()">
+              <i class="fa-solid fa-user-shield"></i>
+                Admin Office
+            </li>
+
+            <li onclick="goFeeCounter()">
+                <i class="fa-solid fa-money-bill-wave"></i>
+                     Fee Counter
+            </li>
             <li onclick="goDean()"><i class="fa-solid fa-user-tie"></i> Dean Office</li>
-            <li><i class="fa-solid fa-user-shield"></i> Admin Office <span class="soon">Soon</span></li>
-            <li><i class="fa-solid fa-money-bill-wave"></i> Fee Counter <span class="soon">Soon</span></li>
             <li onclick="goCanteen()"><i class="fa-solid fa-utensils"></i> Canteen</li>
         </ul>
     </aside>
@@ -45,10 +52,19 @@
         <section class="profile">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Student">
             <div>
-                <h2 id="studentName">Shreya Aggarwal</h2>
-                <p id="studentRoll">🎓 Roll No: 2025CSE001</p>
-                <p id="studentDepartment">🏫 Department: Computer Science & Engineering (Data Science)</p>
-                <p id="studentEmail">📧 Email: shreya@gmail.com</p>
+                <h2 id="studentName"></h2>
+
+                <p id="studentRoll"></p>
+
+                <p id="studentDepartment"></p>
+
+                <p id="studentEmail"></p>
+
+                <p id="studentYear"></p>
+                
+                
+                
+                
             </div>
         </section>
 
@@ -103,12 +119,12 @@
                 <h3>Dean Office</h3>
                 <p>Appointments & Academic Help</p>
             </div>
-            <div class="module">
+            <div class="module admin" onclick="goAdmin()">
                 <i class="fa-solid fa-user-shield"></i>
                 <h3>Admin Office</h3>
-                <p>Coming Soon</p>
+                <p>Manage Student Requests</p>
             </div>
-            <div class="module">
+            <div class="module fee" onclick="goFeeCounter()">
                 <i class="fa-solid fa-money-bill-wave"></i>
                 <h3>Fee Counter</h3>
                 <p>Coming Soon</p>

@@ -1,86 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dean Office | Smart University</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="dean.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dean Office | Smart University</title>
+
+    <link rel="stylesheet" href="dean.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
+
 <body>
-  <div class="sidebar">
-    <div class="logo">
-      <h2>👔 Dean Office</h2>
-      <p>Smart University</p>
-    </div>
+
+<!-- ================= Sidebar ================= -->
+
+<div class="sidebar">
+
+    <h2>🎓 Smart University</h2>
+
     <ul>
-      <li class="active" onclick="switchTab(0)"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
-      <li onclick="switchTab(1)"><i class="fas fa-users"></i> Live Queue</li>
-      <li onclick="switchTab(2)"><i class="fas fa-calendar-check"></i> Appointments</li>
-      <li onclick="switchTab(3)"><i class="fas fa-chart-bar"></i> Analytics</li>
+
+        <li onclick="goDashboard()">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </li>
+
+        <li onclick="goTransport()">
+            <i class="fa-solid fa-bus"></i>
+            Transport
+        </li>
+
+        <li onclick="goRegistrar()">
+            <i class="fa-solid fa-file-lines"></i>
+            Registrar
+        </li>
+
+        <li class="active">
+            <i class="fa-solid fa-user-tie"></i>
+            Dean Office
+        </li>
+
+        <li>
+            <i class="fa-solid fa-user-shield"></i>
+            Admin
+        </li>
+
+        <li>
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+            Fee Counter
+        </li>
+
+        <li onclick="goCanteen()">
+            <i class="fa-solid fa-utensils"></i>
+            Canteen
+        </li>
+
+        <li onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </li>
+
     </ul>
-  </div>
 
-  <main class="main">
+</div>
+
+<!-- ================= Main ================= -->
+
+<div class="main">
+
+    <!-- Topbar -->
+
     <div class="topbar">
-      <h2>Dean Office Portal</h2>
-      <div class="profile-info">
-        <span>Dr. Priya Sharma</span>
-        <button class="notify" onclick="showNotifications()"><i class="fas fa-bell"></i></button>
-      </div>
+
+        <h2 id="welcome"></h2>
+
+        <div id="clock"></div>
+
     </div>
 
-    <!-- Dashboard -->
-    <div id="tab-0" class="tab-content active">
-      <div class="stats">
-        <div class="card">
-          <i class="fas fa-users"></i>
-          <h2>42</h2>
-          <p>Today's Appointments</p>
+    <!-- Student Information -->
+
+    <h2 class="heading">👤 Student Information</h2>
+
+    <section class="student-card">
+
+        <div class="profile">
+
+            <div class="avatar">🎓</div>
+
+            <div>
+
+                <h2 id="studentName"></h2>
+
+                <p id="studentRoll"></p>
+
+                <p id="studentDepartment"></p>
+
+                <p id="studentYear"></p>
+
+            </div>
+
         </div>
-        <div class="card">
-          <i class="fas fa-check-circle"></i>
-          <h2>28</h2>
-          <p>Resolved</p>
+
+    </section>
+
+    <!-- Appointment Form -->
+
+    <h2 class="heading">📅 Book Appointment</h2>
+
+    <section class="appointment-card">
+
+        <div class="form-group">
+
+            <label>Purpose</label>
+
+            <select id="purpose">
+
+                <option>Academic Counselling</option>
+
+                <option>Career Guidance</option>
+
+                <option>Scholarship Discussion</option>
+
+                <option>Attendance Issue</option>
+
+                <option>Disciplinary Meeting</option>
+
+                <option>Other</option>
+
+            </select>
+
         </div>
-        <div class="card">
-          <i class="fas fa-clock"></i>
-          <h2>14 min</h2>
-          <p>Avg. Wait Time</p>
+
+        <div class="form-group">
+
+            <label>Select Dean</label>
+
+            <select id="dean">
+
+                <option>Dean of Engineering</option>
+
+                <option>Dean of Student Affairs</option>
+
+                <option>Dean of Research</option>
+
+            </select>
+
         </div>
-        <div class="card">
-          <i class="fas fa-exclamation-triangle"></i>
-          <h2>14</h2>
-          <p>Pending Requests</p>
+
+        <div class="form-group">
+
+            <label>Appointment Date</label>
+
+            <input type="date" id="appointmentDate">
+
         </div>
-      </div>
+
+        <div class="form-group">
+
+            <label>Time Slot</label>
+
+            <select id="timeSlot">
+
+                <option>10:00 AM</option>
+
+                <option>11:00 AM</option>
+
+                <option>12:00 PM</option>
+
+                <option>02:00 PM</option>
+
+                <option>03:00 PM</option>
+
+                <option>04:00 PM</option>
+
+            </select>
+
+        </div>
+
+        <button onclick="bookAppointment()">
+
+            Book Appointment
+
+        </button>
+
+    </section>
+
+    <!-- Queue -->
+
+    <h2 class="heading">🎟 Queue Management</h2>
+
+    <section class="queue-section">
+
+        <div class="queue-card">
+
+            <h3>Your Token</h3>
+
+            <h1 id="tokenNumber">D-001</h1>
+
+            <button onclick="generateToken()">
+
+                Generate Token
+
+            </button>
+
+        </div>
+
+        <div class="queue-card">
+
+            <h3>Current Token</h3>
+
+            <h1 id="currentToken">D-001</h1>
+
+            <p>
+
+                Students Ahead :
+                <span id="studentsAhead">0</span>
+
+            </p>
+
+            <p>
+
+                Estimated Waiting Time :
+                <span id="waitingTime">0 Minutes</span>
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Appointment History -->
+
+    <h2 class="heading">📋 Appointment History</h2>
+
+    <table class="history-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Date</th>
+
+                <th>Purpose</th>
+
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="historyBody">
+
+        </tbody>
+
+    </table>
+
+    <!-- Notices -->
+
+    <h2 class="heading">📢 Dean Notices</h2>
+
+    <div class="notice-box">
+
+        <ul>
+
+            <li>Scholarship interviews start next Monday.</li>
+
+            <li>Research grant applications are now open.</li>
+
+            <li>Dean Office remains open from Monday to Friday.</li>
+
+            <li>Career counselling sessions every Wednesday.</li>
+
+        </ul>
+
     </div>
 
-    <!-- Live Queue -->
-    <div id="tab-1" class="tab-content">
-      <h2>Live Queue Management</h2>
-      <div class="now-serving">
-        <h3>Currently Serving</h3>
-        <div class="token-big" id="current-token">None</div>
-        <br>
-        <p>Your Token: <span id="myToken">None</span></p>
-        <button class="btn next-btn" onclick="generateToken()">Generate Token</button>
-      </div>
+    <!-- Office Timings -->
+
+    <h2 class="heading">🕒 Office Timings</h2>
+
+    <div class="office-box">
+
+        <p><strong>Monday - Friday :</strong> 10:00 AM - 4:00 PM</p>
+
+        <p><strong>Saturday :</strong> Closed</p>
+
+        <p><strong>Sunday :</strong> Closed</p>
+
     </div>
 
-    <!-- Appointments -->
-    <div id="tab-2" class="tab-content">
-      <h2>New Appointment Request</h2>
-      <form onsubmit="handleAppointment(event)">
-        <input type="text" placeholder="Student Roll Number" required><br><br>
-        <textarea placeholder="Purpose / Issue" rows="5" required></textarea><br><br>
-        <button type="submit" class="btn">Submit to Dean</button>
-      </form>
-    </div>
+    <footer>
 
-    <footer>© 2026 Smart University | Dean Office</footer>
-  </main>
+        © 2026 Smart University Queue Management System
 
-  <script src="dean.js"></script>
+    </footer>
+
+</div>
+
+<script src="dean.js"></script>
+
 </body>
+
 </html>

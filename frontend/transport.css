@@ -734,3 +734,123 @@ button:active{
 .hidden{
     display:none;
 }
+
+/* ==========================================
+   TOAST NOTIFICATION
+========================================== */
+
+.toast{
+
+    position:fixed;
+
+    top:30px;
+
+    right:30px;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:16px 24px;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+
+    opacity:0;
+
+    transform:translateY(-25px);
+
+    transition:.35s;
+
+    z-index:9999;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+/* ==========================================
+   HISTORY STATUS COLORS
+========================================== */
+
+.pending{
+
+    color:#f59e0b;
+
+    font-weight:600;
+
+}
+
+.approved{
+
+    color:#10b981;
+
+    font-weight:600;
+
+}
+
+.rejected{
+
+    color:#ef4444;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   BUTTON HOVER EFFECT
+========================================== */
+
+.service-card button{
+
+    transition:.3s;
+
+}
+
+.service-card button:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================
+   ROUTE CARD HOVER
+========================================== */
+
+.route-card{
+
+    transition:.35s;
+
+}
+
+.route-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+/* ==========================================
+   QUEUE CARD ANIMATION
+========================================== */
+
+.queue-card{
+
+    transition:.3s;
+
+}
+
+.queue-card:hover{
+
+    transform:scale(1.02);
+
+}

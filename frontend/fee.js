@@ -1,44 +1,41 @@
 // ==========================================
-// SMART UNIVERSITY QUEUE MANAGEMENT SYSTEM
-// DEAN OFFICE
+// SMART UNIVERSITY
+// FEE COUNTER
 // ==========================================
 
-// ==========================================
-// USER LOGIN CHECK
-// ==========================================
-
-const userRole = localStorage.getItem("userRole");
-
-if (!userRole) {
-    alert("Please login first.");
-    window.location.href = "login.html";
-}
 
 // ==========================================
 // STUDENT DETAILS
 // ==========================================
 
-const studentName =
-    localStorage.getItem("studentName") || "Shreya Aggarwal";
+const studentName = localStorage.getItem("studentName");
+const studentRoll = localStorage.getItem("studentRoll");
+const studentDepartment = localStorage.getItem("studentDepartment");
+const studentYear = localStorage.getItem("studentYear");
 
-const studentRoll =
-    localStorage.getItem("studentRoll") || "2025CSE001";
+if(!studentName){
 
-const studentDepartment =
-    localStorage.getItem("studentDepartment") ||
-    "Computer Science & Engineering";
+    alert("Please login first.");
+
+    window.location.href="login.html";
+
+}
 
 document.getElementById("welcome").innerHTML =
-    `Welcome, ${studentName} 👋`;
+`Welcome, ${studentName} 👋`;
 
 document.getElementById("studentName").innerHTML =
-    studentName;
+studentName;
 
 document.getElementById("studentRoll").innerHTML =
-    `🎓 Roll Number : ${studentRoll}`;
+`Roll Number : ${studentRoll}`;
 
 document.getElementById("studentDepartment").innerHTML =
-    `🏫 Department : ${studentDepartment}`;
+`Department : ${studentDepartment}`;
+
+document.getElementById("studentYear").innerHTML =
+`Year : ${studentYear}`;
+
 
 // ==========================================
 // LIVE CLOCK
@@ -47,7 +44,7 @@ document.getElementById("studentDepartment").innerHTML =
 function updateClock(){
 
     document.getElementById("clock").innerHTML =
-        new Date().toLocaleString();
+    new Date().toLocaleString();
 
 }
 
@@ -55,69 +52,45 @@ updateClock();
 
 setInterval(updateClock,1000);
 
+
 // ==========================================
-// APPOINTMENT REQUEST
+// PAYMENT
 // ==========================================
 
-function bookAppointment(){
+function payNow(){
 
-    const reason =
-        document.getElementById("reason").value;
+    const method =
+    document.getElementById("paymentMethod").value;
 
-    const date =
-        document.getElementById("appointmentDate").value;
-
-    if(reason==="" || date===""){
-
-        alert("Please fill all fields.");
-
-        return;
-
-    }
-
-    addHistory(reason,date);
-
-    alert("✅ Appointment Request Submitted Successfully.");
-
-    document.getElementById("reason").value="";
-    document.getElementById("appointmentDate").value="";
+    alert(`✅ Payment Successful using ${method}`);
 
 }
 
-// ==========================================
-// APPOINTMENT HISTORY
-// ==========================================
+function downloadReceipt(){
 
-function addHistory(service,date){
-
-    const table =
-        document.querySelector(".history-table tbody");
-
-    const row=document.createElement("tr");
-
-    row.innerHTML=`
-
-    <td>${date}</td>
-
-    <td>${service}</td>
-
-    <td>Pending</td>
-
-    `;
-
-    table.prepend(row);
+    alert("📄 Receipt Download Started (Demo)");
 
 }
 
+
 // ==========================================
-// QUEUE TOKEN
+// QUEUE
 // ==========================================
+
+let savedToken = localStorage.getItem("feeToken");
+
+if(savedToken){
+
+    document.getElementById("tokenNumber").innerHTML =
+    savedToken;
+
+}
 
 function generateToken(){
 
     const userEmail =
-        localStorage.getItem("studentEmail") ||
-        "demo@smartuni.edu";
+    localStorage.getItem("studentEmail") ||
+    "demo@smartuni.edu";
 
     fetch("http://localhost:5000/api/queue/generate",{
 
@@ -131,7 +104,7 @@ function generateToken(){
 
             userId:userEmail,
 
-            department:"dean"
+            department:"fee"
 
         })
 
@@ -144,11 +117,11 @@ function generateToken(){
         if(data.success){
 
             document.getElementById("tokenNumber").innerHTML =
-                data.token;
+            data.token;
 
-            localStorage.setItem("deanToken",data.token);
+            localStorage.setItem("feeToken",data.token);
 
-            alert("🎟 Token Generated : " + data.token);
+            alert("🎟 Token Generated : "+data.token);
 
             fetchQueueStatus();
 
@@ -164,13 +137,11 @@ function generateToken(){
 
 }
 
-// ==========================================
-// FETCH LIVE QUEUE
-// ==========================================
+
 
 function fetchQueueStatus(){
 
-    fetch("http://localhost:5000/api/queue/status/dean")
+    fetch("http://localhost:5000/api/queue/status/fee")
 
     .then(res=>res.json())
 
@@ -179,13 +150,13 @@ function fetchQueueStatus(){
         if(data.success){
 
             document.getElementById("currentToken").innerHTML =
-                data.current_token;
+            data.current_token;
 
             document.getElementById("studentsAhead").innerHTML =
-                data.waiting_count;
+            data.waiting_count;
 
             document.getElementById("waitingTime").innerHTML =
-                (data.waiting_count*3)+" Minutes";
+            (data.waiting_count*3)+" Minutes";
 
         }
 
@@ -196,6 +167,7 @@ function fetchQueueStatus(){
 fetchQueueStatus();
 
 setInterval(fetchQueueStatus,5000);
+
 
 // ==========================================
 // NAVIGATION
@@ -219,11 +191,24 @@ function goRegistrar(){
 
 }
 
+function goDean(){
+
+    window.location.href="dean.html";
+
+}
+
+function goAdmin(){
+
+    window.location.href="admin.html";
+
+}
+
 function goCanteen(){
 
     window.location.href="canteen.html";
 
 }
+
 
 // ==========================================
 // LOGOUT
@@ -241,4 +226,13 @@ function logout(){
 
 }
 
-console.log("Dean Office Loaded Successfully");
+
+// ==========================================
+// PAGE LOAD
+// ==========================================
+
+window.onload=function(){
+
+    console.log("Fee Counter Loaded Successfully 💳");
+
+};

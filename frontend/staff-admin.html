@@ -8,14 +8,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Canteen Dashboard</title>
+<title>Admin Dashboard</title>
 
-<link rel="stylesheet" href="staff-canteen.css">
+<link rel="stylesheet" href="staff-admin.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -23,48 +22,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="sidebar">
 
-<h2>🍔 Smart University</h2>
+<h2>🏛 Smart University</h2>
 
 <ul>
 
 <li class="active">
-
-<i class="fa-solid fa-utensils"></i>
-
-Canteen Dashboard
-
+<i class="fa-solid fa-user-shield"></i>
+Admin Dashboard
 </li>
 
 <li>
-
-<i class="fa-solid fa-burger"></i>
-
-Orders
-
+<i class="fa-solid fa-user-plus"></i>
+Student Registration
 </li>
 
 <li>
-
-<i class="fa-solid fa-clock"></i>
-
-Queue
-
+<i class="fa-solid fa-id-card"></i>
+ID Card Requests
 </li>
 
 <li>
-
-<i class="fa-solid fa-chart-line"></i>
-
-Sales
-
+<i class="fa-solid fa-file-circle-check"></i>
+Document Verification
 </li>
 
 <li onclick="logout()">
-
 <i class="fa-solid fa-right-from-bracket"></i>
-
 Logout
-
 </li>
 
 </ul>
@@ -75,7 +59,7 @@ Logout
 
 <div class="topbar">
 
-<h2>Canteen Management</h2>
+<h2>Administration Office</h2>
 
 <div id="clock"></div>
 
@@ -85,13 +69,13 @@ Logout
 
 <h1 id="staffName">
 
-Welcome Canteen Staff
+Welcome Administrator
 
 </h1>
 
 <p>
 
-Manage food orders and token queue.
+Manage registrations, student documents and administrative services.
 
 </p>
 
@@ -101,15 +85,11 @@ Manage food orders and token queue.
 
 <div class="card">
 
-<i class="fa-solid fa-hourglass-half"></i>
+<i class="fa-solid fa-user-clock"></i>
 
-<h2 id="pendingCount">
+<h2 id="pendingCount">3</h2>
 
-3
-
-</h2>
-
-<p>Preparing</p>
+<p>Pending Requests</p>
 
 </div>
 
@@ -117,27 +97,19 @@ Manage food orders and token queue.
 
 <i class="fa-solid fa-circle-check"></i>
 
-<h2 id="completedCount">
+<h2 id="verifiedCount">0</h2>
 
-0
-
-</h2>
-
-<p>Completed</p>
+<p>Verified</p>
 
 </div>
 
 <div class="card">
 
-<i class="fa-solid fa-receipt"></i>
+<i class="fa-solid fa-users"></i>
 
-<h2>
+<h2>1286</h2>
 
-145
-
-</h2>
-
-<p>Today's Orders</p>
+<p>Registered Students</p>
 
 </div>
 
@@ -153,7 +125,7 @@ Manage food orders and token queue.
 
 <button onclick="addRequest()">
 
-➕ New Order
+➕ Add Demo Request
 
 </button>
 
@@ -165,7 +137,7 @@ Manage food orders and token queue.
 
 <button onclick="downloadReport()">
 
-📊 Sales Report
+📊 Download Report
 
 </button>
 
@@ -173,20 +145,16 @@ Manage food orders and token queue.
 
 <h2 class="heading">
 
-🍕 Current Orders
+📋 Administrative Requests
 
 </h2>
 
 <div class="search-box">
 
 <input
-
 type="text"
-
 id="searchInput"
-
-placeholder="Search Student or Food..."
-
+placeholder="Search Student..."
 onkeyup="searchRequest()">
 
 </div>
@@ -201,7 +169,7 @@ onkeyup="searchRequest()">
 
 <th>Student</th>
 
-<th>Order</th>
+<th>Request</th>
 
 <th>Status</th>
 
@@ -233,7 +201,7 @@ onkeyup="searchRequest()">
 
 </div>
 
-<script src="staff-canteen.js"></script>
+<script src="staff-admin.js"></script>
 
 </body>
 

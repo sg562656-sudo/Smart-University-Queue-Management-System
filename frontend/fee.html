@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Canteen | Smart University</title>
+<title>Fee Counter | Smart University</title>
 
-<link rel="stylesheet" href="canteen.css">
+<link rel="stylesheet" href="fee.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -21,7 +21,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <body>
 
-<!-- Sidebar -->
+<!-- ================= Sidebar ================= -->
 
 <div class="sidebar">
 
@@ -49,17 +49,17 @@ Registrar
 Dean
 </li>
 
-<li>
+<li onclick="goAdmin()">
 <i class="fa-solid fa-user-shield"></i>
 Admin
 </li>
 
-<li>
+<li class="active">
 <i class="fa-solid fa-money-bill-wave"></i>
 Fee Counter
 </li>
 
-<li class="active">
+<li onclick="goCanteen()">
 <i class="fa-solid fa-utensils"></i>
 Canteen
 </li>
@@ -73,7 +73,7 @@ Logout
 
 </div>
 
-<!-- Main -->
+<!-- ================= Main ================= -->
 
 <div class="main">
 
@@ -85,7 +85,7 @@ Logout
 
 </div>
 
-<!-- Student -->
+<!-- Student Information -->
 
 <h2 class="heading">
 
@@ -99,7 +99,7 @@ Logout
 
 <div class="avatar">
 
-🍽
+💳
 
 </div>
 
@@ -111,166 +111,129 @@ Logout
 
 <p id="studentDepartment"></p>
 
-</div>
+<p id="studentYear"></p>
 
 </div>
-
-</section>
-
-<!-- Today's Special -->
-
-<h2 class="heading">
-
-🔥 Today's Specials
-
-</h2>
-
-<section class="specials">
-
-<div class="special-card">
-
-🍕 Pizza Combo
-
-<h3>₹199</h3>
-
-</div>
-
-<div class="special-card">
-
-🥤 Coffee + Sandwich
-
-<h3>₹149</h3>
-
-</div>
-
-<div class="special-card">
-
-🍔 Burger Meal
-
-<h3>₹179</h3>
 
 </div>
 
 </section>
 
-<!-- Food Menu -->
+<!-- Fee Summary -->
 
 <h2 class="heading">
 
-🍽 Food Menu
+💰 Fee Summary
 
 </h2>
 
-<section class="food-grid">
+<section class="fee-grid">
 
-<div class="food-card">
+<div class="fee-card">
 
-<h3>🍔 Burger</h3>
+<h3>Tuition Fee</h3>
 
-<p>₹80</p>
-
-<button onclick="addToCart('Burger',80)">
-Add
-</button>
+<h2>₹50,000</h2>
 
 </div>
 
-<div class="food-card">
+<div class="fee-card">
 
-<h3>🍕 Pizza</h3>
+<h3>Transport Fee</h3>
 
-<p>₹180</p>
-
-<button onclick="addToCart('Pizza',180)">
-Add
-</button>
+<h2>₹12,000</h2>
 
 </div>
 
-<div class="food-card">
+<div class="fee-card">
 
-<h3>🥪 Sandwich</h3>
+<h3>Library Fee</h3>
 
-<p>₹70</p>
-
-<button onclick="addToCart('Sandwich',70)">
-Add
-</button>
+<h2>₹2,000</h2>
 
 </div>
 
-<div class="food-card">
+<div class="fee-card">
 
-<h3>🍜 Noodles</h3>
+<h3>Total Due</h3>
 
-<p>₹120</p>
-
-<button onclick="addToCart('Noodles',120)">
-Add
-</button>
-
-</div>
-
-<div class="food-card">
-
-<h3>☕ Coffee</h3>
-
-<p>₹60</p>
-
-<button onclick="addToCart('Coffee',60)">
-Add
-</button>
-
-</div>
-
-<div class="food-card">
-
-<h3>🧃 Juice</h3>
-
-<p>₹50</p>
-
-<button onclick="addToCart('Juice',50)">
-Add
-</button>
+<h2 id="totalFee">₹64,000</h2>
 
 </div>
 
 </section>
 
-<!-- Cart -->
+<!-- ================= Payment ================= -->
 
 <h2 class="heading">
 
-🛒 Cart
+💳 Payment
 
 </h2>
 
-<div class="cart-box">
+<section class="payment-section">
 
-<ul id="cartItems">
+<div class="payment-card">
 
-<li>No items added.</li>
+<h3>Payment Status</h3>
 
-</ul>
+<h1 class="pending">
 
-<h3>
-<button onclick="placeOrder()" class="place-order-btn">
-    🍽 Place Order
+Pending
+
+</h1>
+
+<p>
+
+Due Date :
+
+<strong>
+
+31 December 2026
+
+</strong>
+
+</p>
+
+<button onclick="payNow()">
+
+Pay Now
+
 </button>
 
-Total :
+<button onclick="downloadReceipt()">
 
-₹<span id="cartTotal">0</span>
+Download Receipt
 
-</h3>
+</button>
 
 </div>
 
-<!-- Queue -->
+<div class="payment-card">
+
+<h3>Payment Method</h3>
+
+<select id="paymentMethod">
+
+<option>UPI</option>
+
+<option>Debit Card</option>
+
+<option>Credit Card</option>
+
+<option>Net Banking</option>
+
+</select>
+
+</div>
+
+</section>
+
+<!-- ================= Queue ================= -->
 
 <h2 class="heading">
 
-🎟 Queue
+🎟 Queue Status
 
 </h2>
 
@@ -282,7 +245,7 @@ Total :
 
 <h1 id="tokenNumber">
 
-C-001
+F-001
 
 </h1>
 
@@ -332,21 +295,135 @@ Estimated Wait :
 
 </section>
 
-<!-- Order Status -->
+<!-- ================= Payment History ================= -->
 
 <h2 class="heading">
 
-📦 Order Status
+📜 Payment History
 
 </h2>
 
-<div class="status-box">
+<table class="history-table">
 
-<h2 id="orderStatus">
+<thead>
 
-Waiting for Order...
+<tr>
+
+<th>Semester</th>
+
+<th>Status</th>
+
+<th>Receipt</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Semester 1</td>
+
+<td class="paid">
+
+Paid
+
+</td>
+
+<td>
+
+<button>
+
+Download
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Semester 2</td>
+
+<td class="paid">
+
+Paid
+
+</td>
+
+<td>
+
+<button>
+
+Download
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Semester 3</td>
+
+<td class="pending">
+
+Pending
+
+</td>
+
+<td>
+
+-
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- ================= Notice ================= -->
+
+<h2 class="heading">
+
+📢 Latest Notices
 
 </h2>
+
+<div class="notice-box">
+
+<ul>
+
+<li>
+
+Fee submission deadline is 31 December.
+
+</li>
+
+<li>
+
+Scholarship applications are now open.
+
+</li>
+
+<li>
+
+Late fee will apply after due date.
+
+</li>
+
+<li>
+
+Online payment available 24×7.
+
+</li>
+
+</ul>
 
 </div>
 
@@ -358,7 +435,7 @@ Waiting for Order...
 
 </div>
 
-<script src="canteen.js"></script>
+<script src="fee.js"></script>
 
 </body>
 

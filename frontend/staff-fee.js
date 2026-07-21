@@ -1,6 +1,6 @@
 
 // ======================================
-// TRANSPORT DASHBOARD V2.0
+// FEE COUNTER DASHBOARD V2.0
 // ======================================
 
 // -------------------------------
@@ -11,19 +11,19 @@ let requests = [
 
 {
     student:"Rahul Sharma",
-    request:"New Bus Pass",
+    amount:"₹45,000",
     status:"Pending"
 },
 
 {
     student:"Priya Singh",
-    request:"Bus Pass Renewal",
+    amount:"₹38,500",
     status:"Pending"
 },
 
 {
     student:"Aman Verma",
-    request:"Route Change",
+    amount:"₹27,000",
     status:"Pending"
 }
 
@@ -36,7 +36,7 @@ let requests = [
 document.addEventListener("DOMContentLoaded",()=>{
 
     const staffName =
-        localStorage.getItem("staffName") || "Transport Officer";
+        localStorage.getItem("staffName") || "Fee Officer";
 
     document.getElementById("staffName").innerHTML =
         `Welcome, ${staffName}`;
@@ -52,15 +52,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 
 // -------------------------------
-// Clock
+// Live Clock
 // -------------------------------
 
 function updateClock(){
 
-    const now = new Date();
-
     document.getElementById("clock").innerHTML =
-        now.toLocaleString();
+        new Date().toLocaleString();
 
 }
 
@@ -77,16 +75,16 @@ function renderTable(){
 
     requests.forEach((item,index)=>{
 
-        table.innerHTML+=`
+        table.innerHTML += `
 
 <tr>
 
 <td>${item.student}</td>
 
-<td>${item.request}</td>
+<td>${item.amount}</td>
 
 <td class="status"
-style="color:${item.status==="Approved"?"green":"orange"}">
+style="color:${item.status==="Paid"?"green":"orange"}">
 
 ${item.status}
 
@@ -96,11 +94,11 @@ ${item.status}
 
 <button
 
-onclick="approveRequest(${index})"
+onclick="collectFee(${index})"
 
-${item.status==="Approved"?"disabled":""}>
+${item.status==="Paid"?"disabled":""}>
 
-${item.status==="Approved"?"Done":"Approve"}
+${item.status==="Paid"?"Collected":"Collect"}
 
 </button>
 
@@ -123,35 +121,35 @@ function updateCards(){
     const pending =
         requests.filter(r=>r.status==="Pending").length;
 
-    const approved =
-        requests.filter(r=>r.status==="Approved").length;
+    const paid =
+        requests.filter(r=>r.status==="Paid").length;
 
     document.getElementById("pendingCount").innerHTML =
         pending;
 
-    document.getElementById("approvedCount").innerHTML =
-        approved;
+    document.getElementById("paidCount").innerHTML =
+        paid;
 
 }
 
 // -------------------------------
-// Approve Request
+// Collect Fee
 // -------------------------------
 
-function approveRequest(index){
+function collectFee(index){
 
-    requests[index].status="Approved";
+    requests[index].status="Paid";
 
     renderTable();
 
     updateCards();
 
-    showToast("Bus Pass Approved");
+    showToast("Fee Collected Successfully");
 
 }
 
 // -------------------------------
-// Add Demo Request
+// Add Demo Payment
 // -------------------------------
 
 function addRequest(){
@@ -159,30 +157,21 @@ function addRequest(){
     const students=[
 
         "Neha Sharma",
-
-        "Riya Kapoor",
-
-        "Vansh Jain",
-
         "Karan Mehta",
-
+        "Riya Kapoor",
         "Harsh Gupta",
-
+        "Vansh Jain",
         "Ananya Verma"
 
     ];
 
-    const requestTypes=[
+    const amounts=[
 
-        "New Bus Pass",
-
-        "Bus Pass Renewal",
-
-        "Route Change",
-
-        "Lost Bus Pass",
-
-        "Duplicate Bus Pass"
+        "₹42,000",
+        "₹30,500",
+        "₹55,000",
+        "₹36,200",
+        "₹48,000"
 
     ];
 
@@ -190,7 +179,7 @@ function addRequest(){
 
         student:students[Math.floor(Math.random()*students.length)],
 
-        request:requestTypes[Math.floor(Math.random()*requestTypes.length)],
+        amount:amounts[Math.floor(Math.random()*amounts.length)],
 
         status:"Pending"
 
@@ -200,7 +189,7 @@ function addRequest(){
 
     updateCards();
 
-    showToast("New Transport Request Added");
+    showToast("New Fee Payment Added");
 
 }
 
@@ -223,21 +212,14 @@ function searchRequest(){
         const student =
             row.cells[0].innerText.toLowerCase();
 
-        const request =
+        const amount =
             row.cells[1].innerText.toLowerCase();
 
-        if(student.includes(keyword) ||
-           request.includes(keyword)){
-
-            row.style.display="";
-
-        }
-
-        else{
-
-            row.style.display="none";
-
-        }
+        row.style.display =
+            student.includes(keyword) ||
+            amount.includes(keyword)
+            ? ""
+            : "none";
 
     });
 
@@ -263,7 +245,7 @@ function refreshTable(){
 
 function downloadReport(){
 
-    showToast("Transport Report Downloaded");
+    showToast("Fee Report Downloaded");
 
 }
 
@@ -273,10 +255,11 @@ function downloadReport(){
 
 function showToast(message){
 
-    const toast=document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
-    document.getElementById("toastMessage").innerHTML=
-    "✔ "+message;
+    document.getElementById("toastMessage").innerHTML =
+        "✔ " + message;
 
     toast.classList.add("show");
 

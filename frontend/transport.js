@@ -1,44 +1,66 @@
 // ==========================================
 // SMART UNIVERSITY QUEUE MANAGEMENT SYSTEM
 // TRANSPORT OFFICE
+// Version 3.0
 // ==========================================
 
 // ==========================================
-// STUDENT DETAILS FROM LOGIN
+// STUDENT DETAILS
 // ==========================================
 
-const studentName = localStorage.getItem("studentName");
-const studentRoll = localStorage.getItem("studentRoll");
-const studentDepartment = localStorage.getItem("studentDepartment");
-const studentYear = localStorage.getItem("studentYear");
-const studentRoute = localStorage.getItem("studentRoute");
+const student = {
+    name: localStorage.getItem("studentName"),
+    roll: localStorage.getItem("studentRoll"),
+    department: localStorage.getItem("studentDepartment"),
+    year: localStorage.getItem("studentYear"),
+    email: localStorage.getItem("studentEmail"),
+    route: localStorage.getItem("studentRoute") || "Not Assigned Yet"
+};
 
-// If user directly opens transport page
-if (!studentName) {
-
+// Redirect if user isn't logged in
+if (!student.name) {
     alert("Please login first.");
-
     window.location.href = "login.html";
 }
 
-// Display Student Information
+// ==========================================
+// DISPLAY STUDENT INFORMATION
+// ==========================================
 
-document.getElementById("welcome").innerHTML =
-`Welcome, ${studentName} 👋`;
+document.getElementById("studentName").textContent = student.name;
 
-document.getElementById("studentName").innerHTML =
-studentName;
+document.getElementById("studentRoll").textContent =
+`Roll Number : ${student.roll}`;
 
-document.getElementById("studentRoll").innerHTML =
-`Roll Number : ${studentRoll}`;
+document.getElementById("studentDepartment").textContent =
+`Department : ${student.department}`;
 
-document.getElementById("studentDepartment").innerHTML =
-`Department : ${studentDepartment}`;
+document.getElementById("studentRoute").textContent =
+`Bus Route : ${student.route}`;
 
-document.getElementById("studentRoute").innerHTML =
-`Bus Route : ${studentRoute}`;
+// ==========================================
+// GREETING
+// ==========================================
 
+function updateGreeting() {
 
+    const hour = new Date().getHours();
+
+    let greeting = "Good Evening";
+
+    if(hour < 12){
+        greeting = "Good Morning";
+    }
+    else if(hour < 17){
+        greeting = "Good Afternoon";
+    }
+
+    document.getElementById("welcome").innerHTML =
+    `${greeting}, ${student.name} 👋`;
+
+}
+
+updateGreeting();
 
 // ==========================================
 // LIVE CLOCK
@@ -49,7 +71,7 @@ function updateClock(){
     const now = new Date();
 
     document.getElementById("clock").innerHTML =
-    now.toLocaleString();
+    now.toLocaleString("en-IN");
 
 }
 
@@ -57,57 +79,21 @@ updateClock();
 
 setInterval(updateClock,1000);
 
-
-
-// ==========================================
-// BUS PASS BUTTONS
-// ==========================================
-
-function applyPass(){
-
-    alert("✅ Bus Pass Application Submitted Successfully!");
-
-}
-
-function renewPass(){
-
-    alert("♻️ Bus Pass Renewal Request Submitted!");
-
-}
-
-function downloadPass(){
-
-    alert("📄 Download Started (Demo)");
-
-}
-
-
-
 // ==========================================
 // NAVIGATION
 // ==========================================
 
 function goDashboard(){
-
     window.location.href="index.html";
-
 }
 
 function goRegistrar(){
-
     window.location.href="registrar.html";
-
 }
-
-
-
-// ==========================================
-// LOGOUT
-// ==========================================
 
 function logout(){
 
-    if(confirm("Are you sure you want to logout?")){
+    if(confirm("Logout?")){
 
         localStorage.clear();
 
@@ -117,196 +103,191 @@ function logout(){
 
 }
 
-console.log("Transport Office Loaded Successfully");s
-
 // ==========================================
-// QUEUE TOKEN MANAGEMENT
+// QUEUE MANAGEMENT
 // ==========================================
 
-// Load saved token if available
+// Load previously generated token (if any)
+
 let savedToken = localStorage.getItem("transportToken");
 
-if(savedToken){
+if (savedToken) {
 
-    document.getElementById("tokenNumber").innerHTML = savedToken;
+    document.getElementById("tokenNumber").textContent = savedToken;
 
 }
 
-function generateToken(){
-    const userEmail = localStorage.getItem("userEmail") || "demo@smartuni.edu";
-    fetch("http://localhost:5000/api/queue/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: userEmail, department: "transport" })
-    })
-    .then(res => res.json())
-    .then(data => {
+// ==========================================
+// GENERATE QUEUE TOKEN
+// ==========================================
+
+async function generateToken() {
+
+    try {
+
+        const response = await fetch("http://localhost:5000/api/queue/generate", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type": "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                userId: student.email,
+                department: "transport"
+
+            })
+
+        });
+
+        const data = await response.json();
+
         if (data.success) {
-            document.getElementById("tokenNumber").innerHTML = data.token;
+
+            document.getElementById("tokenNumber").textContent = data.token;
+
             localStorage.setItem("transportToken", data.token);
-            alert(`🎟 Queue Token Generated Successfully: ${data.token}`);
+
+            showToast(`🎟 Token Generated : ${data.token}`);
+
             fetchQueueStatus();
-        } else {
-            alert(data.message);
+
         }
-    })
-    .catch(err => console.error("Error generating token:", err));
+
+        else {
+
+            showToast(data.message);
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showToast("❌ Unable to generate token.");
+
+    }
+
 }
 
-function fetchQueueStatus() {
-    fetch("http://localhost:5000/api/queue/status/transport")
-    .then(res => res.json())
-    .then(data => {
+// ==========================================
+// FETCH LIVE QUEUE STATUS
+// ==========================================
+
+async function fetchQueueStatus() {
+
+    try {
+
+        const response = await fetch("http://localhost:5000/api/queue/status/transport");
+
+        const data = await response.json();
+
         if (data.success) {
-            document.getElementById("currentToken").innerHTML = data.current_token;
-            document.getElementById("studentsAhead").innerHTML = data.waiting_count;
-            document.getElementById("waitingTime").innerHTML = (data.waiting_count * 3) + " Minutes";
+
+            document.getElementById("currentToken").textContent =
+            data.current_token;
+
+            document.getElementById("studentsAhead").textContent =
+            data.waiting_count;
+
+            document.getElementById("waitingTime").textContent =
+            `${data.waiting_count * 3} Minutes`;
+
         }
-    });
+
+    }
+
+    catch(error){
+
+        console.error("Queue Status Error:", error);
+
+    }
+
 }
 
+// Refresh queue every 5 seconds
 
+fetchQueueStatus();
 
+setInterval(fetchQueueStatus,5000);
 
 // ==========================================
-// LIVE QUEUE POLLING
+// TOAST NOTIFICATIONS
 // ==========================================
 
-setInterval(() => {
-    fetchQueueStatus();
-}, 5000);
+function showToast(message) {
 
+    const oldToast = document.querySelector(".toast");
 
+    if (oldToast) {
+        oldToast.remove();
+    }
 
+    const toast = document.createElement("div");
+
+    toast.className = "toast";
+
+    toast.innerHTML = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add("show");
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3500);
+
+}
 
 // ==========================================
 // APPLICATION HISTORY
 // ==========================================
 
-function addHistory(service){
+function addHistory(service) {
 
-    const table =
-    document.querySelector(".history-table tbody");
+    const table = document.querySelector(".history-table tbody");
+
+    if (!table) return;
 
     const row = document.createElement("tr");
 
-    const today = new Date().toLocaleDateString();
+    const today = new Date().toLocaleDateString("en-IN");
 
     row.innerHTML = `
-
-    <td>${today}</td>
-
-    <td>${service}</td>
-
-    <td class="pending">Pending</td>
-
+        <td>${today}</td>
+        <td>${service}</td>
+        <td class="pending">Pending</td>
     `;
 
     table.prepend(row);
 
 }
 
-
-
 // ==========================================
-// UPDATE BUTTON FUNCTIONS
+// BUS PASS SERVICES
 // ==========================================
 
-function applyPass(){
+function applyPass() {
 
     addHistory("New Bus Pass");
 
-    alert("✅ Bus Pass Application Submitted!");
+    showToast("✅ Bus Pass Application Submitted");
 
 }
 
-
-
-function renewPass(){
-
-    addHistory("Bus Pass Renewal");
-
-    alert("♻️ Renewal Request Submitted!");
-
-}
-
-
-
-function downloadPass(){
-
-    alert("📄 Bus Pass Download Started (Demo)");
-
-}
-
-
-
-// ==========================================
-// PAGE LOADED
-// ==========================================
-
-window.onload = function(){
-
-    console.log("Transport Office Ready 🚍");
-
-};
-
-// ==========================================
-// TRANSPORT OFFICE - PART 3
-// Premium Features
-// ==========================================
-
-
-// ==========================================
-// TOAST NOTIFICATION
-// ==========================================
-
-function showToast(message){
-
-    const toast=document.createElement("div");
-
-    toast.className="toast";
-
-    toast.innerHTML=message;
-
-    document.body.appendChild(toast);
-
-    setTimeout(()=>{
-
-        toast.classList.add("show");
-
-    },100);
-
-    setTimeout(()=>{
-
-        toast.classList.remove("show");
-
-    },3000);
-
-    setTimeout(()=>{
-
-        toast.remove();
-
-    },3500);
-
-}
-
-
-
-// ==========================================
-// UPDATE BUTTONS
-// ==========================================
-
-function applyPass(){
-
-    addHistory("New Bus Pass");
-
-    showToast("✅ Bus Pass Application Submitted Successfully");
-
-}
-
-
-
-function renewPass(){
+function renewPass() {
 
     addHistory("Bus Pass Renewal");
 
@@ -314,33 +295,29 @@ function renewPass(){
 
 }
 
+function downloadPass() {
 
-
-function downloadPass(){
-
-    showToast("📄 Download Started...");
+    showToast("📄 Download Started");
 
 }
-
-
 
 // ==========================================
 // OFFICE STATUS
 // ==========================================
 
-function officeStatus(){
+function officeStatus() {
 
-    const hour=new Date().getHours();
+    const hour = new Date().getHours();
 
-    if(hour>=9 && hour<17){
+    if (hour >= 9 && hour < 17) {
 
         showToast("🟢 Transport Office is Open");
 
     }
 
-    else{
+    else {
 
-        showToast("🔴 Transport Office is Currently Closed");
+        showToast("🔴 Transport Office is Closed");
 
     }
 
@@ -348,132 +325,126 @@ function officeStatus(){
 
 officeStatus();
 
-
-
 // ==========================================
 // BUS PASS VALIDITY
 // ==========================================
 
-const expiryDate=new Date("December 31, 2026");
+const expiryDate = new Date("December 31, 2026");
 
-const today=new Date();
+const today = new Date();
 
-const diff=Math.ceil(
+const daysLeft = Math.ceil(
 
-(expiryDate-today)/(1000*60*60*24)
-
-);
-
-console.log("Bus Pass Valid for",diff,"days");
-
-
-
-// ==========================================
-// GREETING
-// ==========================================
-
-function greeting(){
-
-    const hour=new Date().getHours();
-
-    let msg="";
-
-    if(hour<12){
-
-        msg="Good Morning";
-
-    }
-
-    else if(hour<17){
-
-        msg="Good Afternoon";
-
-    }
-
-    else{
-
-        msg="Good Evening";
-
-    }
-
-    document.getElementById("welcome").innerHTML=
-
-    `${msg}, ${studentName} 👋`;
-
-}
-
-greeting();
-
-
-
-// ==========================================
-// SIMULATE TOKEN CALL
-// ==========================================
-
-setInterval(()=>{
-
-let current=parseInt(
-
-document.getElementById("currentToken")
-
-.innerHTML.replace("T-","")
+    (expiryDate - today) / (1000 * 60 * 60 * 24)
 
 );
 
-let myToken=parseInt(
+console.log(`Bus Pass Valid for ${daysLeft} days`);
 
-document.getElementById("tokenNumber")
+// ==========================================
+// TRANSPORT OFFICE
+// FINAL INITIALIZATION
+// ==========================================
 
-.innerHTML.replace("T-","")
+// Simulate queue movement every 15 seconds
+setInterval(() => {
 
-);
+    const currentTokenElement = document.getElementById("currentToken");
+    const studentsAheadElement = document.getElementById("studentsAhead");
+    const waitingTimeElement = document.getElementById("waitingTime");
+    const myTokenElement = document.getElementById("tokenNumber");
 
-if(current===myToken){
+    if (
+        !currentTokenElement ||
+        !studentsAheadElement ||
+        !waitingTimeElement ||
+        !myTokenElement
+    ) {
+        return;
+    }
 
-showToast("🎉 It's Your Turn! Please Proceed to Counter 2.");
+    let currentToken = parseInt(
+        currentTokenElement.textContent.replace("T-", "")
+    );
 
-}
+    let myToken = parseInt(
+        myTokenElement.textContent.replace("T-", "")
+    );
 
-},5000);
+    if (isNaN(currentToken) || isNaN(myToken)) {
+        return;
+    }
 
+    if (currentToken < myToken) {
+
+        currentToken++;
+
+        currentTokenElement.textContent = "T-" + currentToken;
+
+        const studentsAhead = Math.max(myToken - currentToken, 0);
+
+        studentsAheadElement.textContent = studentsAhead;
+
+        waitingTimeElement.textContent =
+            `${studentsAhead * 3} Minutes`;
+
+    }
+
+    if (currentToken === myToken) {
+
+        showToast("🎉 It's your turn! Please proceed to Counter 2.");
+
+    }
+
+}, 15000);
 
 
 // ==========================================
-// RANDOM NOTICE UPDATE
+// RANDOM TRANSPORT NOTICES
 // ==========================================
 
-const notices=[
+const transportNotices = [
 
-"🚌 Route 3 Bus will depart 10 minutes late.",
+    "🚌 Route 3 bus will depart 10 minutes late.",
 
-"📢 Carry your University ID while travelling.",
+    "📢 Carry your University ID while travelling.",
 
-"✅ New Bus Pass Applications are Open.",
+    "✅ Bus Pass Renewal is now open.",
 
-"🚍 Route 5 timings updated from tomorrow."
+    "🚍 Route 5 timings have been updated.",
+
+    "🚌 Students are requested to reach the bus stop 10 minutes early."
 
 ];
 
-setInterval(()=>{
+setInterval(() => {
 
-const random=
+    const randomNotice =
+        transportNotices[
+            Math.floor(Math.random() * transportNotices.length)
+        ];
 
-Math.floor(Math.random()*notices.length);
+    console.log(randomNotice);
 
-console.log(notices[random]);
-
-},20000);
-
+}, 20000);
 
 
 // ==========================================
-// PAGE LOADED
+// PAGE LOAD
 // ==========================================
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
-showToast("Welcome to Transport Office 🚍");
+    showToast(`Welcome ${student.name} 🚍`);
+
+    console.log("Transport Office Loaded Successfully");
 
 });
 
-console.log("Transport Office Version 2 Loaded");
+
+// ==========================================
+// VERSION
+// ==========================================
+
+console.log("Smart University Queue Management System");
+console.log("Transport Office Version 3.0");

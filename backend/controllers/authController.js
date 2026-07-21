@@ -1,84 +1,191 @@
-const { readDB, writeDB } = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const register = async (req, res) => {
-    try {
-        const { name, email, password, role, roll, department, year } = req.body;
+const {
+    findStudentByEmail,
+    findStudentByRoll,
+    createStudent
+} = require("../models/studentModel");
 
-        if (!name || !email || !password) {
-            return res.status(400).json({ success: false, message: "Please fill all required fields" });
+// ==============================
+// REGISTER STUDENT
+// ==============================
+
+const register = async (req, res) => {
+
+    try {
+
+        const {
+            name,
+            email,
+            password,
+            roll,
+            department,
+            year
+        } = req.body;
+
+        if (
+            !name ||
+            !email ||
+            !password ||
+            !roll
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all required fields."
+            });
         }
 
-        const db = readDB();
-        
-        const userExists = db.users.find(u => u.email === email);
-        if (userExists) {
-            return res.status(400).json({ success: false, message: "Email already registered" });
+        const existingUser = await findStudentByEmail(email);
+
+        if (existingUser.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Email already exists."
+            });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        
-        const newUser = {
-            id: Date.now().toString(),
+
+        await createStudent(
             name,
             email,
-            password: hashedPassword,
-            role: role || 'student',
-            roll: roll || null,
-            department: department || null,
-            year: year || null,
-            createdAt: new Date().toISOString()
-        };
+            hashedPassword,
+            roll,
+            department,
+            year
+        );
 
-        db.users.push(newUser);
-        writeDB(db);
+        res.status(201).json({
+            success: true,
+            message: "Registration Successful"
+        });
 
-        res.status(201).json({ success: true, message: "User Registered Successfully!" });
-        
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Server Error" });
     }
+
+    catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server Error"
+        });
+
+    }
+
 };
 
+// ==============================
+// LOGIN STUDENT
+// ==============================
+
 const login = async (req, res) => {
+
     try {
-        const { email, password } = req.body;
 
-        if (!email || !password) {
-            return res.status(400).json({ success: false, message: "Please enter email and password" });
+        const { roll, password } = req.body;
+
+        if (!roll || !password) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message: "Please enter Roll Number and Password."
+
+            });
+
         }
 
-        const db = readDB();
-        const user = db.users.find(u => u.email === email);
-        
-        if (!user) {
-            return res.status(400).json({ success: false, message: "User not found" });
+        const student = await findStudentByRoll(roll);
+
+        if (student.length === 0) {
+
+            return res.status(404).json({
+
+                success: false,
+
+                message: "Student not found."
+
+            });
+
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(
+            password,
+            student[0].password
+        );
+
         if (!isMatch) {
-            return res.status(400).json({ success: false, message: "Invalid credentials" });
+
+            return res.status(401).json({
+
+                success: false,
+
+                message: "Incorrect Password."
+
+            });
+
         }
 
         const token = jwt.sign(
-            { id: user.id, role: user.role, name: user.name },
-            process.env.JWT_SECRET || 'secret_key',
-            { expiresIn: "1d" }
+
+            {
+                id: student[0].id,
+                roll: student[0].roll
+            },
+
+            process.env.JWT_SECRET || "secret_key",
+
+            {
+                expiresIn: "1d"
+            }
+
         );
 
         res.status(200).json({
+
             success: true,
-            message: "Logged in successfully",
+
+            message: "Login Successful",
+
             token,
-            user: { id: user.id, name: user.name, role: user.role, email: user.email }
+
+            student: {
+
+                id: student[0].id,
+                name: student[0].name,
+                email: student[0].email,
+                roll: student[0].roll,
+                department: student[0].department,
+                year: student[0].year
+
+            }
+
         });
 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Server Error" });
     }
+
+    catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success: false,
+
+            message: "Server Error"
+
+        });
+
+    }
+
 };
 
-module.exports = { register, login };
+module.exports = {
+
+    register,
+    login
+
+};
