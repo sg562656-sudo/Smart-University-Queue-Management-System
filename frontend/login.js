@@ -91,56 +91,45 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     try {
 
         const response = await fetch("http://localhost:5000/api/auth/login", {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify({
-
                 roll: username,
                 password: password
-
             })
-
         });
 
         const data = await response.json();
 
-        if (data.success) {
-
-            localStorage.setItem("studentName", data.student.name);
-            localStorage.setItem("studentRoll", data.student.roll);
-            localStorage.setItem("studentDepartment", data.student.department);
-            localStorage.setItem("studentEmail", data.student.email);
-            localStorage.setItem("studentYear", data.student.year);
-
-            localStorage.setItem("userRole", "student");
-            localStorage.setItem("userName", data.student.name);
-            localStorage.setItem("userEmail", data.student.email);
-
-            localStorage.setItem("token", data.token);
-
-            window.location.href = "index.html";
-
-        }
-
-        else {
-
+        if (!data.success) {
             alert(data.message);
-
+            return;
         }
+
+        localStorage.setItem("studentName", data.student.name);
+        localStorage.setItem("studentRoll", data.student.roll);
+        localStorage.setItem("studentDepartment", data.student.department);
+        localStorage.setItem("studentEmail", data.student.email);
+        localStorage.setItem("studentYear", data.student.year);
+
+        localStorage.setItem("userRole", "student");
+        localStorage.setItem("userName", data.student.name);
+        localStorage.setItem("userEmail", data.student.email);
+
+        localStorage.setItem("token", data.token);
+
+        console.log("Redirecting to index.html...");
+
+        window.location.href = "index.html";
 
     }
-
     catch (error) {
 
-        console.error(error);
+        console.error("LOGIN ERROR:", error);
 
         alert("Unable to connect to server.");
 
     }
-
 });
